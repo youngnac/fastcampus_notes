@@ -254,19 +254,307 @@ Escape code|설명
 > 이 외에도 .casefold() .center() 등 많다. [참고링크](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
 ###문자열 format
-format|설명
----|---
-%s| string
+format|설명|example
+---|---|---
+%s| string|
 %d| decimal
 %x| hexadecimal
 %o| octal
 %f| float
-%e| 
-%g|
-%%|
+%e| Exponent notation|`%.2e' % a`->`'1.23e+02'`
+%g|10진 부동소수점수 혹은 지수로 나타낸 부동소수점수|`'%.2g' % a`->'1.2e+02'`
+%%|literal %
 
-##extend append
+```python
+>>> '%s and %s' % ('cat', 'dog')
+'cat and dog'
+
+>>> %d / %d : %d' % (4, 2, 2)
+'4 / 2 : 2'
+
+>>>	d =37
+>>>	s =4.98
+>>>	'%d %f' % (d, s)
+'37 4.980000'
+>>>	'%d %f' % (s,d)
+'4 37.000000'
+```
+
+###정렬 기준
+`%[정렬기준(-,없음)][전체글자수].[문자길이 또는 소수점 이후 문자길이][변환타입]`
+>'% (-: 왼쪽정렬) 전체글자#.문자#or소수점자리수_변환타입'
+
+```python
+>>>	s =4.98
+>>>'%13.3f' % (s)
+'        4.980'
+>>>	'%-12.5s' % ('happybirthday')
+'happy       '
+```
+
+###새스타일 '{}{}'.format(var1,var2)
+```python 
+>>>	'{}{}'.format('apple','kiwi')
+'applekiwi'
+
+>>>	'{1} {0}'.format('apple','kiwi') #index 사용하여 위치 선정
+'kiwi apple'
+
+>>>	dict = {'a':12,'b':34,'c':'cat'}
+>>> '{0[a]} {0[b]} {0[c]} {1}'.format(dict, 'WPS') #dictionary 사용해서 키-벨류 이용
+'12 34 cat WPS'
+
+>>>'{:d} {:f}'.format(4.09,4)
+#ValueError: Unknown format code 'd' for object of type 'float', deciaml에 float값을 줄순 없다. 
+
+>>>	'{:d} {:f}'.format(4,4.09)
+'4 4.090000'
+
+```
+####새 스타일 '{:_fillings_> or < or ^_#_type}.format(var)
+
+```python
+>>> s = 4
+>>> '{:10d}'.format(s)		#10자리, decimal, default=우측정렬
+'         4'
+>>> '{:10>d}'.format(s)		#위와 같음
+ 
+>>>	'{:<10d}'.format(s)		#좌측정렬
+'4         '
+>>>'{:^5d}'.format(s)		#가운데 정렬
+'  4  '
+>>> {:@<5d}'.format(s)		#좌 정렬 그리고 채우기
+'4@@@@'
+```
+
+##Sequence: 문자열' ' List[ ] Tuple ( )
+> index를 사용하여 seqeunce안의 항목에 접근
+> 문자열, 튜플 수정 불가
+###LIST
+>순차적 data, 내부항목 변경 가능
+
+```python 
+list_1 = [] 		#empty list created
+list_2 = list{}  	#empty list created
+list_1 = ['a', 'b', 'c']
+list_2 ['cat', 'dog', 'bird']
+```
+
+#####문자열->LIST
+```python
+>>>	a = 'abcdefg'
+>>> a = list(a)
+['a', 'b', 'c', 'd', 'e', 'f', 'g']
+```
+
+####Slicing, element change using index
+```python
+>>>	a
+['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+>>>	a[0]
+'a'
+
+>>>	a[5]
+Out[16]: 'f'
+
+>>>	a[1::2]
+['b', 'd', 'f'
+
+>>>	a[1:4] = ['g','k','l']
+>>>	a
+['a', 'g', 'k', 'l', 'e', 'f', 'g']
+```
+###LIST 함수
+####LIST.extend(or append).list2 append
+####LIST.insert(index 'element to insert')
+####LIST.remove('element')
+#### del LIST[#]
 extend 리스트안으로 추가
 append 리스트안에 집합체로 리스트 추가
 
+```python
+>>>	a
+['a', 'g', 'k', 'l', 'e', 'f', 'g']
+>>>b=['kiwi','apple']
+
+>>>	a.extend(b)			#extend하면 리스트 a 안으로 들어가 일부가 된다
+['a', 'g', 'k', 'l', 'e', 'f', 'g', 'kiwi', 'apple']
+
+>>>	a.append(b) 		#append하면 리스트 통째로 삽입
+['a', 'g', 'k', 'l', 'e', 'f', 'g', ['kiwi', 'apple']]
+
+>>>	a.insert(0, 'peach')		#0번째 자리에 peach, 즉 맨앞에 넣겟다.
+>>>	a
+['peach', 'a', 'g', 'k', 'l', 'e', 'f', 'g']
+
+>>>	a.remove('kiwi')			#list a안의 'kiwi' 삭제
+>>>	a
+['peach', 'a', 'g', 'k', 'l', 'e', 'f', 'g', 'apple']
+
+>>>del a[3]		#list a의 4번쨰 학목 지우기. 'k' 지우기
+>>>	a
+['peach', 'a', 'g', 'l', 'e', 'f', 'g', 'apple']
+```
+
+####LIST.pop(index#)
+```python 
+>>>	a
+['a', 'l', 'c']
+
+>>>	a.pop()		#끝요소 빼내고 지우기
+'c'
+>>>	a
+['a', 'l']
+
+>>>	a.pop(0)		#index0, 즉 맨앞 빼내고 지우기
+'a'
+>>>	a
+['l']
+```
+
+####LIST.index('element')
+####'element' in LIST -> T or F
+####LIST.count('element')
+```python
+>>>	a = ['red','pink','blue', 'red']
+>>>	a.index('pink')		#리스트안에서 'pink'의 인덱스 값을 찾아라
+1
+
+>>>'blue' in a		#리스트안에 'blue'가 있는지
+True				#있음
+>>>	'grey' in a
+False				#'grey'는 없음
+
+>>>	a.count('red')		#리스트에 'red' 몇개?
+2
+```
+	
+
+####LIST.sort() 
+>리스트가 sort되어 새리스트가 됨
+
+```python
+a = ['peach', 'a', 'g', 'l', 'e', 'f', 'g', 'apple']
+>>>	a.sort()
+>>>a
+['a', 'apple', 'e', 'f', 'g', 'g', 'l', 'peach']
+```
+
+>> sorted(a) 그냥 sort되서 보여주기만 새리스트로 바로 전환은 안됨
+
+```python
+a = ['a','l','c']
+>>> sorted(a)
+['a', 'c', 'l']
+>>>	a	
+['a', 'l', 'c'] 			#a 는 계속 sort 되어 있지 않은 상테/
+```
+####**항목 추가** LIST.append('element')
+
+```python 
+a = ['a','l','c']
+>>>	a.append('hot')
+>>>	a
+['a','l','c','hot']
+
+>>>a.extend('hot')		#extend는 글자 하나하나 따라서 append를 사용
+['a','l','c','h','o','t']
+```
+
+####리스트끼리 병합 LIST.extend(LIST2)
+
+```python 
+>>>	a = ['a','b','c']
+>>>	b = ['x','y','z']
+>>>	a.extend(b)
+>>>	a
+['a', 'b', 'c', 'x', 'y', 'z']
+```
+
+### Tuple
+>리스트와 비슷 그러나 내부항목 삭제,수정 불가 (extend, append 불가)
+>리스트보다 적은 메모리 사용
+
+#####Tuple Unpacking
+```python 
+>>>a = ('6', '3')
+>>>	x, y = a
+>>>	x
+'6'
+>>>	y
+'3'
+```
+####List <-> Tuple
+```python
+
+>>>	a = ['a', 'b', 'c', 'x', 'y', 'z', 's', 'd']
+>>> a = tuple(a)
+>>>	a 
+('a', 'b', 'c', 'x', 'y', 'z', 's', 'd')
+>>>b = list(a)
+>>>b
+['a', 'b', 'c', 'x', 'y', 'z', 's', 'd']
+```
+##Dictionary
+key-value 형태로 항목을 갖는 자료구조
+>dictionary_name = {'key':value, 'key2':value2 ...}
+
+####dict_name['key']: Using Key, find value, change value, add key-value
+
+```python 
+>>>	num_wheels = {'car':4, 'bike':2}
+>>>	num_wheels['car'] 		#'car'의 키값찾기
+4
+
+>>>num_wheels['car'] = 8		#'car'의 키 값 8로 바꾸기
+>>>num_wheels['plane'] = 0		#'plane': 0 추가하기
+>>> num_wheels
+{'bike': 2, 'car': 8, 'plane': 0}
+```
+####dict_name.update(dict2): 다른 dict와 합치기.
+```python
+>>>	num_wing = {'bird':2}
+>>>	num_wheels.update(num_wing)
+>>>	num_wheels
+{'bike': 2, 'bird': 2, 'car': 8, 'plane': 0}
+```
+####dict.key(), dict.value(), dict.items()
+> 모든 키 값, 벨류 값, 키-벨류
+
+```python 
+>>>	num_wheels.values()
+dict_values([2, 8, 0, 2])
+
+>>>	num_wheels.items()
+dict_items([('bird', 2), ('car', 8), ('plane', 0), ('bike', 2)])
+
+>>>	num_wing.keys()
+dict_keys(['bird']
+```
+
+###Set
+> 키만 있는 dictionary, 중복 값 불허
+
+```python
+>>>	set(num_wheels)
+{'bike', 'bird', 'car', 'plane'}
+
+>>>	set('abfdsasdbvewxwefds')
+{'a', 'b', 'd', 'e', 'f', 's', 'v', 'w', 'x'}
+```
+
+####집합연산
+연산자|설명
+---|---
+\|	|	Union
+&	|	Intersection
+\-	|	Difference
+^	|	대칭차집합(Exclusive) = union - intersection 
+<=	|	Subset
+<	|	Proper subset
+\>=	|	Superset
+\>	|	Proper superset
+
+###python 함수 in List
 since list is not literal if you 
