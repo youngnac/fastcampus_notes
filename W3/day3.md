@@ -556,5 +556,4 @@ dict_keys(['bird']
 \>=	|	Superset
 \>	|	Proper superset
 
-###python 함수 in List
-since list is not literal if you 
+
