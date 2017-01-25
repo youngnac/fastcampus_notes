@@ -36,32 +36,37 @@ ex) `div+p+bq`->
 >: 상위레벨로 복귀
 
 ex)`p>span+em^<span>`->
-```<p>
+```
+<p>
  	<span></span>
  	<em></em>
 	 </p>
 	 <span>
-	 </span>```
+	 </span>
+```
 	 
 		 
 **여러번 사용도 가능 ^^^**
 
 ex) `div+div>p>span+em^^^bq`
 	
-``<div></div>
+```
+<div></div>
 <div>
  <p>	
   <span></span><em></em>
  <p>
 </div>
-<blockquote></blockquote>``
+<blockquote></blockquote>
+```
 
 
 #####Muliplication * 
 >: 같은 element 반복
 
 ex) `ul>li*5`
-		 
+
+```		 
 		 <ul>
 		 	<li></li>
 		 	<li></li>
@@ -69,11 +74,14 @@ ex) `ul>li*5`
 		 	<li></li>
 		 	<li></li>
 		 </ul>
+```
+
 #####Grouping ()
 >: 그룹핑
 
 ex) `div>(header>ul>li*2>a)+footer>p`
-		 
+
+```		 
 		 <div>
 		 	<header>
 		 		<ul>
@@ -85,11 +93,13 @@ ex) `div>(header>ul>li*2>a)+footer>p`
 		 		<p></p>
 		 	</footer>
 		 </div>
+```
 		 
 **()안에 (), *와도 같이 사용가능**
 
 ex) `(div>dl>(dt+dd)*3)+footer>q`
-	
+
+```	
 		 <div>
 		 	<dl>
 		 		<dt></dt>
@@ -103,6 +113,7 @@ ex) `(div>dl>(dt+dd)*3)+footer>q`
 		 <footer>
 		 	<p></p>
 		 </footer>
+```
 	
 ####Attribute operators
 >요소들의 attrs 설정 (id, class, title etc)
@@ -113,15 +124,18 @@ ex) `(div>dl>(dt+dd)*3)+footer>q`
 >: elem#id -> id="" and elem.class -> class=""
 
 ex) `div#header + div.page + div#footer.class1.class2.class3`
-		 
+
+```		 
 		 <div id="header"></div>
 		 <div class="page"></div>
 		 <div id="footer" class="class1 class2 class3></div>
+```
 		 
 #####Custom Attributes
 : elem[attr]
-	ex) td[title ="hello world" colspan=3]
-		 <td title = "hello world" colspan ="3"></td>
+	ex) `td[title ="hello world" colspan=3]`
+	
+		 `<td title = "hello world" colspan ="3"></td>`
 	
 * 여러 attrs을 하나의 []안에 넣어도 무관
 * "" = ''
@@ -129,7 +143,8 @@ ex) `div#header + div.page + div#footer.class1.class2.class3`
 
 #####Item numbering $
 ex) `ul>li.item$*5`
-		
+
+```		
 		 <ul>
 		 	<li class="item1></li>
 		 	<li class="item2></li>
@@ -137,13 +152,15 @@ ex) `ul>li.item$*5`
 			<li class="item4></li>
 		 	<li class="item5></li>
 		 </ul>
+```
 		 
 * item$$$*4 - 자릿수 001, 002 003...
 
 ######Numbering base와 오름/내림차순 변경
 : @ 사용
 ex)` ul>li.item$@-3*5` (base:3,4,5,6,7 -:reverse)
- 
+
+```
 		 <ul>
 		 	<li id="item7"></li>
 			<li id="item6"></li>	
@@ -151,6 +168,7 @@ ex)` ul>li.item$@-3*5` (base:3,4,5,6,7 -:reverse)
 			<li id="item4"></li>
 			<li id="item3"></li>
 		 </ul>
+```
 		 
 ####Text {}
 `{txt}`사용하여 txt삽입
@@ -167,7 +185,9 @@ ex) `a{click}` = `a>{click}` -> `<a href="">click</a>`
 		
 ex) `p>{Click}+a{here} + {to continue}` -> `<p> Click <a href=""> here</a> to continue </p>`
 
+
 day2 date: 2017-1-10 
+
 #HTML (cont)
 ## Block과 Inline(요소의 형태)
 ####block
@@ -216,12 +236,15 @@ day2 date: 2017-1-10
 * strong, b, em ,i, mark :강조, 볼드, 이탈릭,하이라이트
 
 ####Anchor: a tag
+
 `<a href="이동할 페이지 주소" 
 	target="_blank"` or `"_self "` 이동페이지 열리는 창 `"
 	title="마우스 올리변 보이는 제목> 링크걸리는 text</a>`
 ####Image: img tag
+
 `<img src="경로" width="##", height="##px" alt="이미지 설명, 대체txt">`
 ####Lists: ol,ul
+
 * ordered list(숫자, 알파벳 등):
 	
 ```
@@ -252,8 +275,10 @@ day2 date: 2017-1-10
 		<dd>HTML형태 지정 언어</dd>
 </dl>
 ```
+
 ##Table 
 ####기본구조
+
 `table>tr>th*3^(tr>td*3)*2`: 3 X 3 테이블
 	
 ```
@@ -269,7 +294,9 @@ day2 date: 2017-1-10
 		</tr>
 </table>
 ```
+
 ####테이블의 큰 구조
+
 ```
 <table>
 	<thead>
@@ -289,8 +316,11 @@ day2 date: 2017-1-10
 	</tfoot>
 </table>
 ```
+
 **thead와 tfoot은 한번씩만 선언될 수 있다.**
+
 ####셀 병합
+
 `<td colspan="병합할 셀 수">`: column(열) 병합됨(<-->)
 	
 `<td rowspan="병합할 셀수"`: row (행) 병합
@@ -298,12 +328,14 @@ day2 date: 2017-1-10
 `<colgroup span="병합 열 수"></colgroup>`: 특정 열, 행 속성 쉽게 접근
 
 ####행의 구조
+
 - th: table heads
 - table heads: 첫 행
 - table body: 내용 행
 - table foot: 도표하단 행,겷과 행
 
 ####colgroup: 열 그룹
+
 `<colgroup><col/><col/></colgroup>`	
 :이를 사용하여 특정 열 또는 열의 그룹에 쉽게 속성을 줄 수 있다. 
 
