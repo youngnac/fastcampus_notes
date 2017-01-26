@@ -64,14 +64,14 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 >>> a = 3
 >>> b = a + 6  #expression
 >>> b
->>> 9
+9
 ```
 ###Statement 
 >값을 지니지 않고 목적 수행 
 >for 문, del, print, if ...
 
 ```python
-for char in 'fast':
+>>>	for char in 'fast':
  	 print(char)
 f
 a
@@ -104,17 +104,17 @@ var2
 #### type()
 >`type()` 을 사용하여 변수의 타입, int, float, string 인지 확인 할 수 있다. 
 
-```
-a = 123
-type(a)
+```python
+>>>	a = 123
+>>>	type(a)
 int
-b = 'sd'
-type(b)
+>>>b = 'sd'
+>>>	type(b)
 str
-c = 1.24
-type(c)
+>>>c = 1.24
+>>>	type(c)
 float
-print(type(c)
+>>>print(type(c)
 <class 'float'>
 ```
 
@@ -135,7 +135,7 @@ False, class, finally, is ,return, none, continue, for, lambda, try, True, def, 
 ### var = input()
 >var에 변수를 입력받기 위해서는 `input()` 을 사용
 
-` var = input('please enter #: "`
+` var = input('please enter #: ")`
 
 ##Numerics 숫자
 ###Arithmetic operations
@@ -214,7 +214,7 @@ Escape code|설명
 'jgd' #거꾸로도 가능
 ```
 
-###str.split('나누고싶은지점') 문자열 -> list
+###str.split('나누고싶은지점') : 문자열 -> list
 ```python
 >>>	a = "sfd@asdf@asdfhg@onfb"
 
@@ -222,7 +222,7 @@ Escape code|설명
 ['sfd', 'asdf', 'asdfhg', 'onfb']
 ```
 
-###'연결고리'.join(LIST) list -> 문자열
+###'연결고리'.join(LIST) : list -> 문자열
 ```python
 >>>	b = a.split('@')
 
@@ -327,7 +327,7 @@ format|설명|example
 '4@@@@'
 ```
 
-##Sequence: 문자열' ' List[ ] Tuple ( )
+##Sequence: 문자열, ' ' , List[ ] , Tuple ( )
 > index를 사용하여 seqeunce안의 항목에 접근
 > 문자열, 튜플 수정 불가
 ###LIST
