@@ -262,7 +262,7 @@ format|설명|example
 %o| octal
 %f| float
 %e| Exponent notation|`%.2e' % a`->`'1.23e+02'`
-%g|10진 부동소수점수 혹은 지수로 나타낸 부동소수점수|`'%.2g' % a`->'1.2e+02'`
+%g|10진 부동소수점수 혹은 지수로 나타낸 부동소수점수|`'%.2g' % a`->`1.2e+02`
 %%|literal %
 
 ```python
@@ -337,7 +337,7 @@ format|설명|example
 list_1 = [] 		#empty list created
 list_2 = list{}  	#empty list created
 list_1 = ['a', 'b', 'c']
-list_2 ['cat', 'dog', 'bird']
+list_2 = ['cat', 'dog', 'bird']
 ```
 
 #####문자열->LIST
