@@ -50,7 +50,7 @@ ex)`p>span+em^<span>`->
 
 ex) `div+div>p>span+em^^^bq`
 	
-```
+```html
 <div></div>
 <div>
  <p>	
