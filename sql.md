@@ -209,6 +209,7 @@ Limit 5;
 > selects records that meets certain pattern
 > 
 > can select records that has a certain letter or contains certain word...
+
 ```sql
 SELECT col_name(s)
 FROM tb_name
@@ -218,6 +219,7 @@ WHERE col_name LIKE pattern;
 SELECT * FROM [Employees]
 where LastName like '%o%'		#to select records that has a letter 'o' in its lastname
 ```
+
 ####SELECT wildcard using underscore
 >wildcard character is used to substitue for any other character in a string
 
