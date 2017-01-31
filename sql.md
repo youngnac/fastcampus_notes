@@ -139,9 +139,10 @@ WHERE column_name = value 			#indicates specific col and data to update certain 
 ```
 
 ```sql
-UPDATE Customers
-SET ContactName = 'Young Cho'
+UPDATE Customers 
+SET ContactName = 'Young Cho' 
 WHERE CustomerID = 95 
+#chane the value of contactname(to 'Young Cho') which customerID = 95
 ```
 
 ###DELETE FROM _ WHERE col\_value = some\_value
@@ -157,12 +158,12 @@ WHERE FirstName = 'Nancy';
 !!!
 `Delete From tb_name` and no WHERE statement => deletes all table data
 
-##SQL INJECTION
+###SQL INJECTION
 > inject SQL commands into an SQL statements via web page input
 > 
 > can alter SQL statement and compromise the security of web app
 
-###Injection based on 1=1 is always true
+####Injection based on 1=1 is always true
 > wrong input을 방지하는것이 없을때...항상 참인 값을 입력하여 정보에 접근 할 수 있다. 
 
 ex) 
@@ -172,7 +173,7 @@ userid: `105 or 1=1`
 
 >this allows one to access all user data
 
-###Parameters for Protection
+####Parameters for Protection
 > To protect from injection attacks, set SQL parameters
 > >parameter: values added to an SQL query at execution time
 
@@ -355,7 +356,7 @@ UNION
 SELECT City FROM Suppliers
 ORDER BY City;
 ```
-###SELECT INO
+###SELECT INTO
 >creates a copy (maybe for backup...) from one table into another
 
 ```sql
@@ -484,7 +485,7 @@ City varchar(255)
 )
 ```
 
->when alterging:
+>when altering:
 
 ```sql
 ALTER TABLE Persons
