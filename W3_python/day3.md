@@ -21,7 +21,7 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 `pyenv virtualenv 3.4.3 fc-python` 
 
-#### Select the virtualenv as loca
+#### Select the virtualenv as loca	l
 
 `pyenv global 3.4.3`
 
@@ -311,7 +311,7 @@ format|설명|example
 '4 4.090000'
 
 ```
-####새 스타일 '{:_fillings_> or < or ^_#_type}.format(var)
+####새 스타일 '{:_fillings\_> or < or ^\_#_type}.format(var)
 
 ```python
 >>> s = 4
@@ -330,6 +330,7 @@ format|설명|example
 ##Sequence: 문자열, ' ' , List[ ] , Tuple ( )
 > index를 사용하여 seqeunce안의 항목에 접근
 > 문자열, 튜플 수정 불가
+
 ###LIST
 >순차적 data, 내부항목 변경 가능
 
@@ -366,8 +367,8 @@ Out[16]: 'f'
 ['a', 'g', 'k', 'l', 'e', 'f', 'g']
 ```
 ###LIST 함수
-####LIST.extend(or append).list2 append
-####LIST.insert(index 'element to insert')
+####LIST.extend(or append).list2 
+####LIST.insert(index, 'element to insert')
 ####LIST.remove('element')
 #### del LIST[#]
 extend 리스트안으로 추가
@@ -534,7 +535,7 @@ dict_keys(['bird']
 ```
 
 ###Set
-> 키만 있는 dictionary, 중복 값 불허
+> 키만 있는 dictionary, 중복 값 불허, unordered and unique
 
 ```python
 >>>	set(num_wheels)
