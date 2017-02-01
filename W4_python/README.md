@@ -3,8 +3,7 @@
 >- scope 
 >- closure
 >- lambda
->- inner 
->- function
+>- inner function
 >- decorator
 >- generator
 
