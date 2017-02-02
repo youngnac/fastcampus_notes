@@ -201,6 +201,38 @@ def get_webtoon_episode_list(webtoon_id):
     return total_episode_list
 ```
 
+###crawl.py
+>이 파일에서는 궁극적으로 원하는 동작을 실행한다.
+>
+>parser의 page.py의 function을 불러와 실행한다. 
+>
+>모든 리스트를 긁어와 프린트를 하고 싶다면:
+>>
+```python
+import parser 
+result = parser.get_webtoon_episode_list(WEBTOON_ID)
+for item in result:
+	print(item)
+```
+
+>그리고 이 리스트를 활용해 html파일을 만들려면:
+>>
+```python
+f = open('webtoon.html', 'w')
+f.write('<html><body>')
+for item in result:
+    f.write('''<div>
+    <a href="http://comic.naver.com{href}">{title}</a>
+    | <span>{created}</span>
+</div>'''.format(
+        href=item['link'],
+        title=item['title'],
+        created=item['created']
+    ))
+f.write('</body></html>')
+f.close()
+```
+
 #Module Package
 >where: projects/Python/package/files.py
 
