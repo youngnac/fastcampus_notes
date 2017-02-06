@@ -40,6 +40,11 @@ polls/
     tests.py
     views.py
 ```
+###check your tree
+>`tree`
+#####*트리에서 pycache 숨기기: tree -I '__pycache__'*
+>alias 설정함(tree-pycache)
+
 ###create first view
 >polls/views.py 에 view 작성
 >
@@ -56,6 +61,7 @@ from django.conf.urls import url
 from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    # url에 처음부터 끝 아무것도 없을 때 즉 아무것도 입력되지 않았을 떄 views.index를 실행한다
 ]
 ```
 >mystie/url.py 에
@@ -65,6 +71,7 @@ urlpatterns = [
 from django.conf.urls import include, url
 from django.contrib import admin
 urlpatterns = [
+	#polls로 시작하고 그 뒤에 뭐든 오든 다음의 요즘은..polls.urls에서 시행한다
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
 ]
@@ -72,7 +79,7 @@ urlpatterns = [
 
 #02:
 ###DB설정
->mysite/settings.py 에서 engine, name설정
+>mysite/settings.py 에서 `DATABASE =...` engine, name설정
 
 ###INSTALLED_APPS
 >`INSTALLED_APPS` : Django 인스턴스에서 활성화된 모든 Django 어플리케이션들의 이름
@@ -86,7 +93,7 @@ urlpatterns = [
 
 ##Migrate
 **`python manage.py migrate`**
-> migrate 명령은 INSTALLED_APPS 의 설정을 탐색하여, mysite/settings.py 의 데이터베이스 설정과 app 과 함께 제공되는 데이터베이스 migrations(나중에 설명하겠습니다) 에 따라, 필요한 데이터베이스 테이블을 생성합니다. 
+> migrate 명령은 INSTALLED_APPS 의 설정을 탐색하여, mysite/settings.py 의 데이터베이스 설정과 app 과 함께 제공되는 데이터베이스 migrations에 따라 필요한 데이터베이스 테이블을 생성. 
 
 ##Model
 >부가적인 메타데이터를 가진 데이터베이스의 구조(layout)
@@ -136,20 +143,20 @@ class Choice(models.Model):
 >모델을 사용해보자
 
 ```python
->>>> from polls.models import Question, Choice  >>>> Question.objects.all()
+>>> from polls.models import Question, Choice  >>>> Question.objects.all()
 <QuerySet []>
->>>> from django.utils import timezone
->>>> q = Question(question_text="What's new?", pub_date=timezone.now())
->>>> q.save()
->>>> q.id
+>>> from django.utils import timezone
+>>> q = Question(question_text="What's new?", pub_date=timezone.now())
+>>> q.save()
+>>> q.id
 1
->>>> q.question_text
+>>> q.question_text
 "What's new?"
->>>> q.pub_date
+>>> q.pub_date
 datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
->>>> q.question_text = "What's up?"
->>>> q.save()
->>>> Question.objects.all()
+>>> q.question_text = "What's up?"
+>>> q.save()
+>>> Question.objects.all()
 <QuerySet [<Question: Question object>]>
 ```
 ##\_\_str__형식으로 model 수정
@@ -159,14 +166,14 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 class Question(models.Model):
 ...
 	def __str__(self):
-		return self.question_text
+		return self.question_.text
 class Choice(models.Model):
 ...
     def __str__(self):
         return self.choice_text
 ```
 
-###in Shell:
+###in Shell: (` python manage.py shell_plus`
 ```python
 >>> from polls.models import Question, Choice
 >>> Question.objects.all()
@@ -232,7 +239,7 @@ admin.site.register(Question)
 >
 > now try: change the published time of the question 
 and save it.
-then check if it reallyd changed...
+then check if it really changed...
 
 ```python 
 >>>from polls.models import Question, Choice
@@ -246,9 +253,9 @@ datetime.datetime(2017, 2, 5, 10, 14, 49, tzinfo=<UTC>)
 #View
 > type of webpage in your application that often serves a specific function
  
-1. Question “index” page – displays the latest few questions.
-2. Question “detail” page – displays a question text, with no results but with a form to vote.
-3. Question “results” page – displays results for a particular question.
+1. Question “index” – displays the latest few questions.
+2. Question “detail” – displays a question text, with no results but with a form to vote.
+3. Question “results” – displays results for a particular question.
 4. Vote action – handles voting for a particular choice in a particular question.
 
 ###How to get from a URL to a view?
