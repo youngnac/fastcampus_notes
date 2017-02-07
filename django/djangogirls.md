@@ -216,13 +216,16 @@ TEMPLATES= [{'DIRS': [
 >>> Post.objects.all()
 >>> Post.objects.filter(author=me)
 >>> from django.utils import timezone
->>> post = Post.objects.get(title="Sample title")
+>>> post = Post.objects.get(title="post 6")
 >>> post.publish()
 *AttributeError: 'str' object has no attribute 'save'*
 >>> Post.objects.filter(published_date__lte=timezone.now())
 >>> Post.objects.order_by('created_date')
 >>> Post.objects.order_by('-created_date')
->>>Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+>>> Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+<QuerySet [<Post: post 1>, <Post: post 2 yeah>, <Post: post 3 oh yeahhhh>, <Post: post 6>]>
+>>> Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+<QuerySet [<Post: post 6>, <Post: post 3 oh yeahhhh>, <Post: post 2 yeah>, <Post: post 1>]>
 ```
 
 ##views, html edited to show real posts
