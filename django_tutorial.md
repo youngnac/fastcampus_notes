@@ -455,7 +455,7 @@ def was_published_recently(self):
 >`polls/static/polls/style.css`
 
 in this file:
->
+
 ```css
 li a {
     color: green;		#색 넣기
@@ -470,5 +470,95 @@ polls/templates/polls/index.html
 ```python
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+```
+>run server and check: [here](http://localhost:8000/polls/)
 
+#07:
+##Customize admin
+###polls/admin.py
+> this edit will add fields in admin page and split question_text and date information. 
+
+```python
+from django.contrib import admin
+from .models import Question
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date']}),
+    ]
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+> we can also add Choice into admin page
+
+```python
+from .models import Choice, Question
+#...
+admin.site.register(Choice)
+```
+
+>this will show 3 boxes for choices
+
+```python
+class ChoiceInline(admin.StackedInline):
+    model = Choice
+    extra = 3
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
+    ]
+    inlines = [ChoiceInline]
+
+admin.site.register(Question, QuestionAdmin)
+```
+
+>admin main page will now show q_text, p_date, was_published_recently data in one row
+
+```python
+class QuestionAdmin(admin.ModelAdmin):
+    # ...
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
+```
+
+> we can also some filters:
+
+```python
+list_filter = ['pub_date']
+#or
+search_fields = ['question_text']
+```
+
+#####overall...:
+
+```python
+from django.contrib import admin
+
+from .models import Choice, Question
+
+#choice view 테이블 형식
+# class ChoiceInline(admin.StackedInline):
+class ChoiceInline(admin.TabularInline):
+    model = Choice
+    extra = 2 
+    #extra number can change according how many choice-edit boxes you want to show at once
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
+    ]
+    inlines = [ChoiceInline]
+    list_display = ('question_text', 'pub_date','was_published_recently')
+    list_filter = ['pub_date']
+    search_fields = ['question_text']
+
+
+admin.site.register(Question, QuestionAdmin)
 ```
