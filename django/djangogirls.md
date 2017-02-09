@@ -1,4 +1,5 @@
 #django girls
+(in cmd: `./manage.py`
 ##basic setup
 ###directory, pyenv, install django, git
 1. create directory for the project : `mkdir djangogirls_tutorial`
@@ -69,7 +70,8 @@ Post (object):
 
 ##start your app - blog
 1. `python manage.py startapp blog`
-2. add `blog` in `INSTALLED_APPS =[...` of mysite/settings.py 
+2. add `blog.apps.BlogConfig` in `INSTALLED_APPS =[...` of mysite/settings.py 
+	- INSTALLED_APPS 순서는: 장고, 외부 library, 그리고 우리가 만드는 apps
 
 ##models.py and create tables for models
 > for obejct 'Post', properties with fields and methods 
@@ -203,7 +205,9 @@ TEMPLATES= [{'DIRS': [
 ```
 
 ##using shell
-**`python manage.py shell`**
+
+**`./manage.py shell`**
+>>`publised_date__lte`: less than equal (gte: greater than equal)
 
 ```python
 >>> from blog.models import Post
@@ -255,6 +259,7 @@ def post_list(request):
 </div>
 {% endfor %}
 ```
+
  
  
  
