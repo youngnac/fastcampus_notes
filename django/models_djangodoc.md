@@ -1,13 +1,10 @@
 django document 
 #Models:
-- single, definitive source of infomration about your data
-- contains fields and behaviours of the data
+- single, definitive source of information about your data
+- contains fields and behaviors of the data
 - each model maps to single DB table
-- each model is a python class that subclasses
- `djdango.db.models.Model`
- 
-	* So, when you create class in models.py in application:
- `class ClassName(models.Model)`
+- each model is a python class that subclasses `djdango.db.models.Model`
+	* So, when you create class in models.py in application: `class ClassName(models.Model)`
 - Django automatically generates DB with queries.
 
 ###To use models: add 'myapp' in `INSTALLED_APPS`
