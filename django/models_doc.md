@@ -1,13 +1,10 @@
 django document 
 #Models:
-- single, definitive source of infomration about your data
-- contains fields and behaviours of the data
+- single, definitive source of information about your data
+- contains fields and behaviors of the data
 - each model maps to single DB table
-- each model is a python class that subclasses
- `djdango.db.models.Model`
- 
-	* So, when you create class in models.py in application:
- `class ClassName(models.Model)`
+- each model is a python class that subclasses `djdango.db.models.Model`
+	* So, when you create class in models.py in application: `class ClassName(models.Model)`
 - Django automatically generates DB with queries.
 
 ###To use models: add 'myapp' in `INSTALLED_APPS`
@@ -301,12 +298,14 @@ class Blog(models.Model):
         else:
             super().save(*args, **kwargs) # Call the "real" save() method.
 ```
+
 ##Model Inheritance
 - similar with python
 - base class must subclass djang.db.models.Model
 - before creating Model: decide
 	1. if you want your parent models to be models in their own right
 	2. or if you want to make your parent model to be a holder for common information and only to be visible through child models
+	
 ##3 Possible Inheritances:
 -
 1. Abstract base classes: parent class just holds information so that you do  not type out same information for each child model
