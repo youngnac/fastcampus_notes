@@ -1,7 +1,8 @@
 day1 date: 2017-1-9 
-#HTML
 
-###Use Markdown
+# HTML
+
+### Use Markdown
 Links for more details:
 
 1. [Wiki] (<https://en.wikipedia.org/wiki/Markdown>)
@@ -21,18 +22,18 @@ Links for more details:
 ex) `<div>` 또는 `p` -> `<div></div>` `<p></p>`
 
 #### Nesting Operators
-#####Child > 
+##### Child > 
 >: Nest inside
 
 ex) `div>ul>li` ->
 ```<div><ul><li></li></ul></div>
 ```
-#####Sibling +
+##### Sibling +
 >: Same Level
 
 ex) `div+p+bq`->
 `<div></div><p></p><blockquote></blockquote>`
-#####Climb-up ^
+##### Climb-up ^
 >: 상위레벨로 복귀
 
 ex)`p>span+em^<span>`->
@@ -61,7 +62,7 @@ ex) `div+div>p>span+em^^^bq`
 ```
 
 
-#####Muliplication * 
+##### Muliplication * 
 >: 같은 element 반복
 
 ex) `ul>li*5`
@@ -76,7 +77,7 @@ ex) `ul>li*5`
 		 </ul>
 ```
 
-#####Grouping ()
+##### Grouping ()
 >: 그룹핑
 
 ex) `div>(header>ul>li*2>a)+footer>p`
@@ -115,10 +116,10 @@ ex) `(div>dl>(dt+dd)*3)+footer>q`
 		 </footer>
 ```
 	
-####Attribute operators
+#### Attribute operators
 >요소들의 attrs 설정 (id, class, title etc)
-
-#####ID 와 Class
+ 
+##### ID 와 Class
 >: # -> ID and . -> Class
 
 >: elem#id -> id="" and elem.class -> class=""
@@ -131,7 +132,7 @@ ex) `div#header + div.page + div#footer.class1.class2.class3`
 		 <div id="footer" class="class1 class2 class3></div>
 ```
 		 
-#####Custom Attributes
+##### Custom Attributes
 : elem[attr]
 	ex) `td[title ="hello world" colspan=3]`
 	
@@ -141,7 +142,7 @@ ex) `div#header + div.page + div#footer.class1.class2.class3`
 * "" = ''
 * attr에 따른 value 지정하지 않아도 attr="" 으로 생성
 
-#####Item numbering $
+##### Item numbering $
 ex) `ul>li.item$*5`
 
 ```		
@@ -156,7 +157,7 @@ ex) `ul>li.item$*5`
 		 
 * item$$$*4 - 자릿수 001, 002 003...
 
-######Numbering base와 오름/내림차순 변경
+###### Numbering base와 오름/내림차순 변경
 : @ 사용
 ex)` ul>li.item$@-3*5` (base:3,4,5,6,7 -:reverse)
 
@@ -170,7 +171,7 @@ ex)` ul>li.item$@-3*5` (base:3,4,5,6,7 -:reverse)
 		 </ul>
 ```
 		 
-####Text {}
+#### Text {}
 `{txt}`사용하여 txt삽입
 
 ex) `a{Click me}` -> `<a href="">Click me</a>`
@@ -188,29 +189,29 @@ ex) `p>{Click}+a{here} + {to continue}` -> `<p> Click <a href=""> here</a> to co
 
 day2 date: 2017-1-10 
 
-#HTML (cont)
+# HTML (cont)
 ## Block과 Inline(요소의 형태)
-####block
+#### block
 :width = 전체너비
 
 `<h>`, `<p>`, `<div>`
-####Inline
+#### Inline
 :width = text length, 줄바꿈 x
 
 `<strong>`, `<a>`, `<span>`
 
-####Layout
+#### Layout
 ``<div>
 <p>블록 내부<span> 인라인</span>블록 내부</p>
 </div>``
 	
-##HTML tags
-####Headline
+## HTML tags
+#### Headline
 `h1`,`h2`,...,`h6`
 
 `h1`:biggest, `h6`:smallest
 
-####Line Breaks(줄바꿈)
+#### Line Breaks(줄바꿈)
 * `<p>~~~~</p>`
 
     ***공백***
@@ -225,7 +226,7 @@ day2 date: 2017-1-10
  
 `<br>`은 바로 아래 줄이 옴. 바로 줄 바꿈
 
-#####ETC
+##### ETC
 * `<hr>`:수평선
 * `<blockquote></blockquote>`:인용문
 * ``<pre>
@@ -235,15 +236,15 @@ day2 date: 2017-1-10
 	:preformatted texts
 * strong, b, em ,i, mark :강조, 볼드, 이탈릭,하이라이트
 
-####Anchor: a tag
+#### Anchor: a tag
 
 `<a href="이동할 페이지 주소" 
 	target="_blank"` or `"_self "` 이동페이지 열리는 창 `"
 	title="마우스 올리변 보이는 제목> 링크걸리는 text</a>`
-####Image: img tag
+#### Image: img tag
 
 `<img src="경로" width="##", height="##px" alt="이미지 설명, 대체txt">`
-####Lists: ol,ul
+#### Lists: ol,ul
 
 * ordered list(숫자, 알파벳 등):
 	
@@ -263,7 +264,7 @@ day2 date: 2017-1-10
 <ul>
 ```
 	
-####Description List: dl
+#### Description List: dl
 ```
 <dl>
 	<dt>HTML목록의 개념</dt>
@@ -276,8 +277,8 @@ day2 date: 2017-1-10
 </dl>
 ```
 
-##Table 
-####기본구조
+## Table 
+#### 기본구조
 
 `table>tr>th*3^(tr>td*3)*2`: 3 X 3 테이블
 	
@@ -295,7 +296,7 @@ day2 date: 2017-1-10
 </table>
 ```
 
-####테이블의 큰 구조
+#### 테이블의 큰 구조
 
 ```
 <table>
@@ -319,7 +320,7 @@ day2 date: 2017-1-10
 
 **thead와 tfoot은 한번씩만 선언될 수 있다.**
 
-####셀 병합
+#### 셀 병합
 
 `<td colspan="병합할 셀 수">`: column(열) 병합됨(<-->)
 	
@@ -327,21 +328,21 @@ day2 date: 2017-1-10
 	
 `<colgroup span="병합 열 수"></colgroup>`: 특정 열, 행 속성 쉽게 접근
 
-####행의 구조
+#### 행의 구조
 
 - th: table heads
 - table heads: 첫 행
 - table body: 내용 행
 - table foot: 도표하단 행,겷과 행
 
-####colgroup: 열 그룹
+#### colgroup: 열 그룹
 
 `<colgroup><col/><col/></colgroup>`	
 :이를 사용하여 특정 열 또는 열의 그룹에 쉽게 속성을 줄 수 있다. 
 
 
-##Form	
-###Form 요소
+## Form	
+### Form 요소
 form tag: 브라우저에서 서버로 data전송 위한 tag (ID,pwd,성별, 생일 등...)
 
 ``` 
@@ -351,15 +352,15 @@ form tag: 브라우저에서 서버로 data전송 위한 tag (ID,pwd,성별, 생
 </form>
 ```
 
-####두가지 method:
+#### 두가지 method:
 
 1. **get: url** 에 표시(**never for credentials**)
 	- url안에 data 삽입해서 전송됨
 
 2. **post: url** 과 별도로 전달(보안성)
 
-###Form - action
-####Input tags:
+### Form - action
+#### Input tags:
 * <input type=text, password, 
 		radio, checkbox, button, file, 
 		submit, reset, hidden ...
@@ -373,7 +374,7 @@ form tag: 브라우저에서 서버로 data전송 위한 tag (ID,pwd,성별, 생
 * form에 영향
 * 같은 이름의 radio는 동시에 체크 불가
 
-####Label tag:
+#### Label tag:
 * `<label for="a">a</label>
 	  <input type="text id="a">`
 
@@ -389,7 +390,7 @@ label for =~~ 와 input id=~~ 연결하면 해당 요소를 정확히 가르킴.
 
 * `<select size ="option 몇개 보이기"></select>`
 
-####Optgroup tag:
+#### Optgroup tag:
 ```
 <optgroup label="Fruits">
 	<option....
@@ -403,25 +404,25 @@ label for =~~ 와 input id=~~ 연결하면 해당 요소를 정확히 가르킴.
 	
 **option들을 카테고리로 묶는다.**
 
-####Button tag:
+#### Button tag:
 ```
 <button type="submit, reset, button"> text goes here</button>
 ```
 :`<input type="button">`을 대체 가능
 
-####Field Set, Legend tag:
+#### Field Set, Legend tag:
 * Field set: form을 담는다
 * Legend: fieldset의 제목
  
-###Class와 ID
-####ID: 
+### Class와 ID
+#### ID: 
 페이지에서 딱 한 번 사용하며 unique한 특성 나타냄
 
 * ex: id=chatper1, chpater2
 
 	
-####Class:
-여러번 사용 가능, 범요적인 부분 나타냄
+#### Class:
+여러번 사용 가능, 범용적인 부분 나타냄
 
 * ex: class= "chapter"로 chap1, chap2 다 명시
 
