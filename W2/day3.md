@@ -1,4 +1,4 @@
-#day3
+# day3
 >* 프로그래머: computer program 만드는 사람
 >* 프로그래밍: program 만드는 일
 >* 컴퓨터 프로그램: computer에 의해 실행되는 일련의 기능 모음
