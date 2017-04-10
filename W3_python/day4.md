@@ -1,5 +1,5 @@
 2017-1-26
-###QnA from last lecture
+### QnA from last lecture
 string.replace("~", "new~")
 이는 새로운 문자열을 return하는 것이지 본 string은 바뀌지 않음
 
@@ -12,7 +12,7 @@ string.replace("~", "new~")
 ```
 
 a = 'sdfgh'
-##조건문: if, elif, else
+## 조건문: if, elif, else
 
 ```python
 >>>if is_holiday == True:
@@ -34,7 +34,7 @@ a = 'sdfgh'
 		print('bad')
 ```
 
-####조건표현식
+#### 조건표현식
 `참일경우 if 조건식 else 거짓일 경우`
 
 ```python
@@ -42,7 +42,7 @@ print('good') if vacation >=7 else print('normal') if vacation >=5 else print ('
 ```
 
 
-##for 문 (조건에 따른 순회)
+## for 문 (조건에 따른 순회)
 >squence 데이터 순회할 때 사용
 >
 >iterable: sequences(list,) 숫자 range, tuple, dictionary, strings, set
@@ -59,7 +59,7 @@ blue
 black
 yellow
 ```
-		
+
 >>- dict.values()
 >>- dic.items()
 
@@ -67,15 +67,15 @@ yellow
 >>>	for i in colors.items():
      	print(i)
 ```
-###기본틀
+### 기본틀
 ```python 
 for 항목 in 순회가능객체:
 	실행 codes...
 ```
-###range(#): 0 ... #-1
-###range(1,#): 1 ... #-1
+### range(#): 0 ... #-1
+### range(1,#): 1 ... #-1
 
-#####구구단
+##### 구구단
 ```python
 >>>	for i in range(2,10):
 	     print('{}단시작'.format(i))
@@ -105,7 +105,7 @@ yellow
 peach
 ```
 
-####Break and Continue
+#### Break and Continue
 >- break: 중도에 중단
 
 ```python
@@ -141,7 +141,7 @@ for i in range(9):
 8
 ```
 
-####ZIP
+#### ZIP
 >여러 sequence 동시 순회 가능
 
 ```python
@@ -153,7 +153,7 @@ for i in range(9):
 >>>	list(result)
 [('red', 'apple'), ('yellow', 'kiwi'), ('blue', 'peach')]
 ```
-##While: 조건이 참일 때까지 반복
+## While: 조건이 참일 때까지 반복
 
 ```python
 while 조건:
@@ -161,7 +161,7 @@ while 조건:
 	조건이 거짓일 때까지 반복
 ```
 
-##List comprehension
+## List comprehension
 >iteralbe 객체로부터 파이썬 자료구조를 만드는 방법.
 
 ```python
@@ -191,13 +191,13 @@ while 조건:
  ('blue', 'peach')]
 
 ```
-####Set comprehension
+#### Set comprehension
 `표현식 for 표현식 in interable`
-####Generator comprehension
+#### Generator comprehension
 `표현식 for 표현식 in iterable`
 > tuple 생성 X, 리스트 형태로 생성 O
 
-##Tuple은 generator 생성 (다시 돌려줘야 하는 것)
+## Tuple은 generator 생성 (다시 돌려줘야 하는 것)
 ```python
 >>>g = (item for item in range(10))
 >>>	for i in g:
@@ -270,7 +270,7 @@ for x in range (1,100):
      
 ```
 
-##ENUMERATE
+## ENUMERATE
 
 ```python
 for index, x in enumerate(range(2,10)):
@@ -295,19 +295,19 @@ for x in enumerate(range(3,9)):
 (4, 7)
 (5, 8)
 ```
-##함수
+## 함수
 >반복적인 작업을 코드화하여 재사용 가능하게 한 것.
 
 ```python
 def 함수명(매개변수[parameter]):
 	동작
 ```
-####parameter와 argument의 차이
+#### parameter와 argument의 차이
 > 함수 생성시 함수에게 전달되어 온 변수: parameter 
-> 
+>
 > 함수 호출 시 전달하는 변수: argument
 
-###함수를 argument로 전달하기 (연습)
+### 함수를 argument로 전달하기 (연습)
 ```python
 >>> def print_call_func():
     print('call func')
@@ -333,7 +333,7 @@ None
 
 ```
 
-###내부함수
+### 내부함수
 ```python
 def outer(val):
      def inner():
@@ -346,7 +346,7 @@ def outer(val):
      return inner(val)    
      
 ```
-####default parameter
+#### default parameter
 > parameter선언시 default 값을 미리 지정하여, 따로 주어지지 않을 경우 항상 그 값을 사용.
 
 ```python
@@ -359,7 +359,7 @@ def outer(val):
         	return result
     	print(result)
 ```
-#####default parameter는 실행될 때마다 계산되는 것이 아니라 정의 될때 계산되어 사용
+##### default parameter는 실행될 때마다 계산되는 것이 아니라 정의 될때 계산되어 사용
 ```python
 >>> def return_list(value, result=[]):
 		result.append(value)

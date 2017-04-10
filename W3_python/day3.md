@@ -1,7 +1,7 @@
 2017-01-25
-#python 설정 (mac)
+# python 설정 (mac)
 
-### ~/.zshrc 파일에 root설정
+###  ~/.zshrc 파일에 root설정
 
 ```
 export PYENV_ROOT=/usr/local/var/pyenv
@@ -10,7 +10,7 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 ```
 
 >Install utilities to solve issues regarding arrow keys in cell
-`brew install readline xz`
+>`brew install readline xz`
 
 ### Install python 3.4.3 using pyenv
 
@@ -33,12 +33,12 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 #### Switch to virtualenv in local
 `pyenv local fc-python`
- 
+
 > `$ l` 로 확인후 
 > `python` 실행
 > `exit()` 종료
 
-####Interactive python shell iPython (install)
+#### Interactive python shell iPython (install)
 >`pip list` : 패키지 리스트 (`--format=colums` : 컬럼형태로 나옴)
 
 `pip install ipython`
@@ -47,17 +47,17 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 >
 
 
-#PYTHON basic
-##BASIC
-###What is literal(리터럴)?
+# PYTHON basic
+## BASIC
+### What is literal(리터럴)?
 > 변하지 않는 고정된 데이터 자체의 표현
 > (list is not literal)
- 
+
 - 정수형: 5, 19, 145
 - 문자: '영나', 'time flies'
 - 부동소수점: 1983.256923
 
-###Expression(표현식)
+### Expression(표현식)
 >값을 의미하는 표현 (expressing values)
 
 ```python
@@ -66,7 +66,7 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 >>> b
 9
 ```
-###Statement 
+### Statement 
 >값을 지니지 않고 목적 수행 
 >for 문, del, print, if ...
 
@@ -78,7 +78,7 @@ a
 s
 t
 ```
-##Variables 변수
+## Variables 변수
 >파이썬은 객체들로 이루어져있고 객체는 데이터의 형태를 결정하는 타입이다. 객체는 타입을 바꿀 수 없다. 
 >
 >따라서 변수를 선언하여 원하는 형태로 값을 할당하고 참조한다. 
@@ -120,8 +120,8 @@ float
 
 >이때 class라고 하며 type을 나타내는데, 이 둘은 거의 같은 의미. 
 
-###변수의 이름제한 
-####사용 가능
+### 변수의 이름제한 
+#### 사용 가능
 - 소문자, 대문자 -> 유니코드
 - 숫자
 - underscore _
@@ -137,18 +137,18 @@ False, class, finally, is ,return, none, continue, for, lambda, try, True, def, 
 
 ` var = input('please enter #: ")`
 
-##Numerics 숫자
-###Arithmetic operations
+## Numerics 숫자
+### Arithmetic operations
 
-연산자|설명|example
----|---|---
-//	|정수나누기:나머지 버리고 정수만|10//3=3
-%| 나머지만 보이기| 7%5=2
-** |지수| 2**3 =8
-+=| 자기 자신에 더하기| a += 3 -> a= a+3
-*=| 자기에 곱| a *= 3 -> a= a * 3
+| 연산자  | 설명                | example            |
+| ---- | ----------------- | ------------------ |
+| //   | 정수나누기:나머지 버리고 정수만 | 10//3=3            |
+| %    | 나머지만 보이기          | 7%5=2              |
+| **   | 지수                | 2**3 =8            |
+| +=   | 자기 자신에 더하기        | a += 3 -> a= a+3   |
+| *=   | 자기에 곱             | a *= 3 -> a= a * 3 |
 
-####우선순위
+#### 우선순위
 >괄호를 사용하지 않아도 우선수위에 따라 계산된다. 
 
 ```
@@ -163,36 +163,36 @@ False, class, finally, is ,return, none, continue, for, lambda, try, True, def, 
 20
 ```
 
-###base 진수
+### base 진수
 - 2진수: **0b**11 = 3 (**b**inary)
 - 8진수: **0o**10 = 8 (**o**cta)
 - 16진수: **0x**A=10 (he**x**a)
 
-####2진<->10진 변환
+#### 2진<->10진 변환
 2진->10진: `int('####',2)`
 10진->2진: `bin(#)`
 
 
-###int(), float(): type변환
+### int(), float(): type변환
 >`int(35)`, `float(35)` 와 같이 type을 바꿔줄 수 있다. 
 
-##문자열
-###문자열 표현 "~" '~' "'~'~~~"
+## 문자열
+### 문자열 표현 "~" '~' "'~'~~~"
 >작은따옴표 `''` 또는 큰따옴표 `""` 사용하여 문자를 나타낸다. 
 >여러줄은 `''' line1 line2 line3 '''` 세개씩 사용하여 감싸준다. 
 >이는 `'line1\nline2\nline3\n'`과 같다고 볼 수 있다. 
 >`\n` 줄바꿈이다. 이러한 것들을 escape codes라고 한다. 
 
-Escape code|설명
----|---
-\a|beep
-\t|tab
-\n|line change
-\ | \ 입력
-\'|' 입력
-\"|" 입력
+| Escape code | 설명          |
+| ----------- | ----------- |
+| \a          | beep        |
+| \t          | tab         |
+| \n          | line change |
+| \           | \ 입력        |
+| \'          | ' 입력        |
+| \"          | " 입력        |
 
-###Indexing 인덱스 연산
+### Indexing 인덱스 연산
 ```python
 >>>	a = "korea"
 >>>	a[0] 
@@ -203,7 +203,7 @@ Escape code|설명
 'korea'
 ```
 
-####Slicing var[start:end-index전:step]
+#### Slicing var[start:end-index전:step]
 ```python
 >>>a = "asdfghjk"
 >>>	a[0:3]
@@ -214,7 +214,7 @@ Escape code|설명
 'jgd' #거꾸로도 가능
 ```
 
-###str.split('나누고싶은지점') : 문자열 -> list
+### str.split('나누고싶은지점') : 문자열 -> list
 ```python
 >>>	a = "sfd@asdf@asdfhg@onfb"
 
@@ -222,7 +222,7 @@ Escape code|설명
 ['sfd', 'asdf', 'asdfhg', 'onfb']
 ```
 
-###'연결고리'.join(LIST) : list -> 문자열
+### '연결고리'.join(LIST) : list -> 문자열
 ```python
 >>>	b = a.split('@')
 
@@ -232,7 +232,7 @@ Escape code|설명
 >>>	' '.join(b)
 'sfd asdf asdfhg onfb'
 ```
-###대소문자변환 *ex) 문자열var.upper()*
+### 대소문자변환 *ex) 문자열var.upper()*
 ```python
 >>>	a = "Like"
 
@@ -253,17 +253,17 @@ Escape code|설명
 ```
 > 이 외에도 .casefold() .center() 등 많다. [참고링크](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
-###문자열 format
-format|설명|example
----|---|---
-%s| string|
-%d| decimal
-%x| hexadecimal
-%o| octal
-%f| float
-%e| Exponent notation|`%.2e' % a`->`'1.23e+02'`
-%g|10진 부동소수점수 혹은 지수로 나타낸 부동소수점수|`'%.2g' % a`->`1.2e+02`
-%%|literal %
+### 문자열 format
+| format | 설명                           | example                   |
+| ------ | ---------------------------- | ------------------------- |
+| %s     | string                       |                           |
+| %d     | decimal                      |                           |
+| %x     | hexadecimal                  |                           |
+| %o     | octal                        |                           |
+| %f     | float                        |                           |
+| %e     | Exponent notation            | `%.2e' % a`->`'1.23e+02'` |
+| %g     | 10진 부동소수점수 혹은 지수로 나타낸 부동소수점수 | `'%.2g' % a`->`1.2e+02`   |
+| %%     | literal %                    |                           |
 
 ```python
 >>> '%s and %s' % ('cat', 'dog')
@@ -280,7 +280,7 @@ format|설명|example
 '4 37.000000'
 ```
 
-###정렬 기준
+### 정렬 기준
 `%[정렬기준(-,없음)][전체글자수].[문자길이 또는 소수점 이후 문자길이][변환타입]`
 >'% (-: 왼쪽정렬) 전체글자#.문자#or소수점자리수_변환타입'
 
@@ -292,7 +292,7 @@ format|설명|example
 'happy       '
 ```
 
-###새스타일 '{}{}'.format(var1,var2)
+### 새스타일 '{}{}'.format(var1,var2)
 ```python 
 >>>	'{}{}'.format('apple','kiwi')
 'applekiwi'
@@ -311,7 +311,7 @@ format|설명|example
 '4 4.090000'
 
 ```
-####새 스타일 '{:_fillings\_> or < or ^\_#_type}.format(var)
+#### 새 스타일 '{:_fillings\_> or < or ^\_#_type}.format(var)
 
 ```python
 >>> s = 4
@@ -327,11 +327,11 @@ format|설명|example
 '4@@@@'
 ```
 
-##Sequence: 문자열, ' ' , List[ ] , Tuple ( )
+## Sequence: 문자열, ' ' , List[ ] , Tuple ( )
 > index를 사용하여 seqeunce안의 항목에 접근
 > 문자열, 튜플 수정 불가
 
-###LIST
+### LIST
 >순차적 data, 내부항목 변경 가능
 
 ```python 
@@ -341,14 +341,14 @@ list_1 = ['a', 'b', 'c']
 list_2 = ['cat', 'dog', 'bird']
 ```
 
-#####문자열->LIST
+##### 문자열->LIST
 ```python
 >>>	a = 'abcdefg'
 >>> a = list(a)
 ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 ```
 
-####Slicing, element change using index
+#### Slicing, element change using index
 ```python
 >>>	a
 ['a', 'b', 'c', 'd', 'e', 'f', 'g']
@@ -366,10 +366,10 @@ Out[16]: 'f'
 >>>	a
 ['a', 'g', 'k', 'l', 'e', 'f', 'g']
 ```
-###LIST 함수
-####LIST.extend(or append).list2 
-####LIST.insert(index, 'element to insert')
-####LIST.remove('element')
+### LIST 함수
+#### LIST.extend(or append).list2 
+#### LIST.insert(index, 'element to insert')
+#### LIST.remove('element')
 #### del LIST[#]
 extend 리스트안으로 추가
 append 리스트안에 집합체로 리스트 추가
@@ -398,7 +398,7 @@ append 리스트안에 집합체로 리스트 추가
 ['peach', 'a', 'g', 'l', 'e', 'f', 'g', 'apple']
 ```
 
-####LIST.pop(index#)
+#### LIST.pop(index#)
 ```python 
 >>>	a
 ['a', 'l', 'c']
@@ -414,9 +414,9 @@ append 리스트안에 집합체로 리스트 추가
 ['l']
 ```
 
-####LIST.index('element')
-####'element' in LIST -> T or F
-####LIST.count('element')
+#### LIST.index('element')
+#### 'element' in LIST -> T or F
+#### LIST.count('element')
 ```python
 >>>	a = ['red','pink','blue', 'red']
 >>>	a.index('pink')		#리스트안에서 'pink'의 인덱스 값을 찾아라
@@ -430,9 +430,9 @@ False				#'grey'는 없음
 >>>	a.count('red')		#리스트에 'red' 몇개?
 2
 ```
-	
 
-####LIST.sort() 
+
+#### LIST.sort() 
 >리스트가 sort되어 새리스트가 됨
 
 ```python
@@ -451,7 +451,7 @@ a = ['a','l','c']
 >>>	a	
 ['a', 'l', 'c'] 			#a 는 계속 sort 되어 있지 않은 상테/
 ```
-####**항목 추가** LIST.append('element')
+#### 항목 추가 LIST.append('element')
 
 ```python 
 a = ['a','l','c']
@@ -463,7 +463,7 @@ a = ['a','l','c']
 ['a','l','c','h','o','t']
 ```
 
-####리스트끼리 병합 LIST.extend(LIST2)
+#### 리스트끼리 병합 LIST.extend(LIST2)
 
 ```python 
 >>>	a = ['a','b','c']
@@ -477,7 +477,7 @@ a = ['a','l','c']
 >리스트와 비슷 그러나 내부항목 삭제,수정 불가 (extend, append 불가)
 >리스트보다 적은 메모리 사용
 
-#####Tuple Unpacking
+##### Tuple Unpacking
 ```python 
 >>>a = ('6', '3')
 >>>	x, y = a
@@ -486,7 +486,7 @@ a = ['a','l','c']
 >>>	y
 '3'
 ```
-####List <-> Tuple
+#### List <-> Tuple
 ```python
 
 >>>	a = ['a', 'b', 'c', 'x', 'y', 'z', 's', 'd']
@@ -497,11 +497,11 @@ a = ['a','l','c']
 >>>b
 ['a', 'b', 'c', 'x', 'y', 'z', 's', 'd']
 ```
-##Dictionary
+## Dictionary
 key-value 형태로 항목을 갖는 자료구조
 >dictionary_name = {'key':value, 'key2':value2 ...}
 
-####dict_name['key']: Using Key, find value, change value, add key-value
+#### dict_name['key']: Using Key, find value, change value, add key-value
 
 ```python 
 >>>	num_wheels = {'car':4, 'bike':2}
@@ -513,14 +513,14 @@ key-value 형태로 항목을 갖는 자료구조
 >>> num_wheels
 {'bike': 2, 'car': 8, 'plane': 0}
 ```
-####dict_name.update(dict2): 다른 dict와 합치기.
+#### dict_name.update(dict2): 다른 dict와 합치기.
 ```python
 >>>	num_wing = {'bird':2}
 >>>	num_wheels.update(num_wing)
 >>>	num_wheels
 {'bike': 2, 'bird': 2, 'car': 8, 'plane': 0}
 ```
-####dict.key(), dict.value(), dict.items()
+#### dict.key(), dict.value(), dict.items()
 > 모든 키 값, 벨류 값, 키-벨류
 
 ```python 
@@ -534,7 +534,7 @@ dict_items([('bird', 2), ('car', 8), ('plane', 0), ('bike', 2)])
 dict_keys(['bird']
 ```
 
-###Set
+### Set
 > 키만 있는 dictionary, 중복 값 불허, unordered and unique
 
 ```python
@@ -545,16 +545,16 @@ dict_keys(['bird']
 {'a', 'b', 'd', 'e', 'f', 's', 'v', 'w', 'x'}
 ```
 
-####집합연산
-연산자|설명
----|---
-\|	|	Union
-&	|	Intersection
-\-	|	Difference
-^	|	대칭차집합(Exclusive) = union - intersection 
-<=	|	Subset
-<	|	Proper subset
-\>=	|	Superset
-\>	|	Proper superset
+#### 집합연산
+| 연산자  | 설명                                      |
+| ---- | --------------------------------------- |
+| \|   | Union                                   |
+| &    | Intersection                            |
+| \-   | Difference                              |
+| ^    | 대칭차집합(Exclusive) = union - intersection |
+| <=   | Subset                                  |
+| <    | Proper subset                           |
+| \>=  | Superset                                |
+| \>   | Proper superset                         |
 
 
