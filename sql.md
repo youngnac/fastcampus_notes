@@ -83,7 +83,7 @@ WHERE column_name = (other operators) # (or 'text');
 
 >extracts data that meets specific field from columns selected of a table
 
-###S ELECT _ FROM _ WHERE col_name = # or ' '
+### SELECT _ FROM _ WHERE col_name = # or ' '
 ```SQL
 SELECT City, PostalCode FROM [Customers]
 WHERE Country = 'Germany';
@@ -144,7 +144,7 @@ WHERE CustomerID = 95
 # chane the value of contactname(to 'Young Cho') which customerID = 95
 ```
 
-###DELETE FROM _ WHERE col\_value = some\_value
+### DELETE FROM _ WHERE col\_value = some\_value
 ```sql
 DELETE FROM table_name
 WHERE column_name = text/#_value;
