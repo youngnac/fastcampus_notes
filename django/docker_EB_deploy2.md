@@ -1,0 +1,885 @@
+
+
+#  Docker
+
+##  [Docker commands](https://docs.docker.com/v1.11/engine/reference/commandline/cli/)
+
+![](/Users/yn_c/notes_wps/image_note/docker_flow.jpg))
+
+###  컨테이너 실행 : run
+
+```
+docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+```
+
+`run`명령어를 사용하면 사용할 이미지가 저장되어 있는지 확인하고 없다면 다운로드(`pull`)를 한 후 컨테이너를 생성(`create`)하고 시작(`start`) 합니다.
+
+* `-p`, `-publish=[]`: 호스트에 연결된 컨테이너의 특정 포트를 외부에 노출. 주로 웹 서버의 포트를 노출할 때 사용. `<ip주소>:<호스트 포트>:<컨테이너 포트>`이며 포트하나만 쓰면 컨테이너 포트가 지정되고 호스트 포트 번호는 무작위로 설정된다.
+
+###  컨테이너 목록 확인 : ps 
+
+```
+docker ps [OPTIONS]
+```
+
+ps 명령어는 실행중인 컨테이너 목록을 보여준다. `-a`,`--all`옵션을 사용하면 됨.
+
+
+
+###  컨테이너 실행 중지 : stop 
+
+```
+docker stop [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+실행중인 하나 이상의 컨테이너를 실행 중지한다. 컨테이너 이름 혹은 ID를 띄어쓰기로 구분해서 넣어주면 된다. 
+
+> 도커 ID의 전체 길이는 64자리 입니다. 하지만 명령어의 인자로 전달할 때는 전부 입력하지 않아도 됩니다. 예를 들어 ID가 `abcdefgh...`라면 `abcd`만 입력해도 됩니다. 앞부분이 겹치지 않는다면 1-2자만 입력해도 됩니다.
+
+
+
+###  컨테이너 제거하기 : rm
+
+```
+docker rm [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+'**종료된**' 컨테이너를 제거한다. 
+
+> 중지된 컨테이너를 일일이 삭제 하는 건 귀찮은 일입니다. `docker rm -v $(docker ps -a -q -f status=exited)` 명령어를 입력하면 중지된 컨테이너 ID를 가져와서 한번에 삭제합니다.
+
+
+
+###  이미지 목록 확인 : images
+
+```
+docker images [OPTIONS] [REPOSITORY[:TAG]]
+```
+
+도커가 다운로드 한 이미지 목록을 확인한다. 
+
+* `-q`, `--quiet`: 숫자 ID 값만 보여준다.
+* `-f`, `—filter=[]`: 필터
+* `-a`, `--all`: 전부 보여준다. 
+
+
+
+###  이미지 다운로드 : pull 
+
+```
+docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+```
+
+이미지를 최신 버전으로 다시 다운받을 때 사용한다. 
+
+
+
+###  이미지 삭제 : rmi 
+
+```
+docker rmi [OPTIONS] IMAGE [IMAGE...]
+```
+
+**컨테이너가 실행 종료 된** 이미지를 삭제할 때 사용한다. 
+
+
+
+###  컨테이너 로그 확인 : logs
+
+```
+docker logs [OPTIONS] CONTAINER
+```
+
+docker의 로그를 출력해준다. `-f`,`--tail` 옵션을 사용. 
+
+
+
+###  컨테이너 명령어 실행 : exec
+
+```
+docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+```
+
+실행중인 컨테이너에서 커맨드를 실행하게 한다. `-it`옵션.
+
+
+
+###  이미지 빌드 : build
+
+```
+docker build [OPTIONS] PATH | URL | -
+```
+
+도커 이미지를 빌드해준다. PATH에는 도커파일이 있는 경로를 입력한다.
+
+
+
+##  OPTIONS
+
+| 옵션       | 설명                                       |
+| -------- | :--------------------------------------- |
+| -d       | detached mode 흔히 말하는 백그라운드 모드            |
+| -p       | 호스트와 컨테이너의 포트를 연결 (포워딩) , '호스트 포트 : 컨테이너 포트' 로 입력 |
+| -v       | 호스트와 컨테이너의 디렉토리를 연결 (마운트)                |
+| -e       | 컨테이너 내에서 사용할 환경변수 설정                     |
+| –-name   | 컨테이너 이름 설정, 지정하지 않으면 도커가 자동으로 생성해 준다.    |
+| –-rm     | 프로세스 종료시 컨테이너 자동 제거                      |
+| -it      | -i와 -t를 동시에 사용한 것으로 터미널 입력을 위한 옵션        |
+| -–link   | 컨테이너 연결 [컨테이너명:별칭]                       |
+| -a, —all | 실행했다 종료된(Exited) 컨테이너까지 포함해 목록을 전부 보여준다. |
+| -t, —tag | 이름 태그를 지정 / logs: show timestamps        |
+| -f       | logs: 실시간 로그를 출력 / rm,rmi : —force, 강제로 삭제 |
+| —tail    | 마지막 10개의 로그만 출력                          |
+
+
+
+##  Docker commands
+
+| 명령어        | 구문                                       | 설명                                       |
+| ---------- | ---------------------------------------- | ---------------------------------------- |
+| FROM       | `FROM <image>:<tag>`                     | 베이스 이미지를 지정                              |
+| MAINTAINER |                                          | Dockerfile을 관리하는 사람의 정보.                 |
+| COPY       | `COPY <src>... <dest>`                   | 파일이나 디렉토리를 이미지 안으로 복사, target 디렉토리가 없으면 자동으로 생성 |
+| ADD        | `ADD <src>... <dest>`                    | COPY와 유사하지만! `<src>`에 URL과 압축파일을 입력 가능. 압축파일을 입력하면 자동으로 압축 해제와 복사 |
+| RUN        | `RUN <command>`                          | 명령어를 그대로 실행, 내부적으로 `/bin/sh -c`뒤에 명령어를 실행한다 |
+| CMD        | `CMD ["executable","param1","param2"]`   | 컨테이너가 실행되었을 때 실행할 명령어를 정의. 이미지를 빌드할 때는 실행되지 않으며 여러개의 CMD가 존재할 경우 가장 마지막 CMD만 실행. 한번에 여러개를 실행하고 싶을 경우 `run.sh`파일을 작성하여 데몬으로 실행하거나 `supervisord`같은 프로그램을 사용한다. |
+| WORKDIR    | `WORKDIR /path/to/workdir`               | RUN, CMD, ADD, COPY등이 이루어질 기본 디렉토리를 설정합니다. 각 명령어의 현재 디렉토리는 한 줄 한 줄마다 초기화되기 때문에 `RUN cd /path`를 하더라도 다음 명령어에선 다시 위치가 초기화 됩니다. 같은 디렉토리에서 계속 작업하기 위해서 `WORKDIR`을 사용합니다. |
+| EXPOSE     | `EXPOSE <port> [<port>…]`                | 도커 컨테이너가 실행되었을 때 요청을 기다리고 있는(Listen) 포트를 지정합니다. 여러개의 포트를 지정할 수 있습니다. |
+| VOLUME     | `VOLUME ["/data"]`                       | 컨테이너 외부에 파일시스템을 마운트 할 때 사용합니다. 반드시 지정하지 않아도 마운트 할 수 있지만, 기본적으로 지정하는 것이 좋습니다. |
+| ENV        | `ENV <key> <value>`, `ENV <key>=<value>` | 컨테이너에서 사용할 환경변수를 지정합니다. 컨테이너를 실행할 때 `-e`옵션을 사용하면 기존 값을 오버라이딩 |
+
+
+
+
+
+##  도커를 경험해보기 
+
+###  프로젝트 세팅 
+
+설정폴더 이름이 항상 프로젝트 이름과 같았는데 config로 바꿔준다. 그냥 리네임 해주면됨. 대신에 이렇게 하고 세군데를 바꿔줘야 한다.
+
+#####  settings.py
+
+```
+ROOT_URLCONF = 'config.urls'
+
+...
+
+
+WSGI_APPLICATION = 'config.wsgi.application'
+```
+
+#####  manage.py
+
+```
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+```
+
+
+###  docker 우분투 컨테이너 세팅 
+ `docker run --rm -it ubuntu:16.04 /bin/bash` 으로 실행해보면, 도커 이미지가 생성되면서 ubuntu 리눅스가 설치된 격리된 환경이 생겼다. 이 안에 python, django등 설치해본다. 이후 
+
+```
+root@e248b86b862e:/srv/app#  cd eb/
+root@e248b86b862e:/srv/app/eb#  python3 manage.py runserver
+```
+
+런서버 확인하고 컨테이너에서 나온다.  `docker run --rm -it ubuntu:16.04 /bin/bash`로 다시 들어가보면 설치했던게 다 지워져있다. 도커 이미지는 불변이고 안에서 변경된 내용은 저장되지 않기 때문임. 그래서 컨테이너가 제거되면 같은 이미지를 사용하더라도 컨테이너 안에서 설치된 파일은 삭제되어 있다. 
+
+###  그래서 Dockerfile을 작성해야 한다
+
+Dockerfile(도커 이미지 빌드용 DSL'Domain Specific Language')을 통해 이미지를 만들어 초기 세팅에 필요한 것들을 설치해주도록 해야 한다. (=Dockerizing) 그리고 이 이미지를 이용해서 컨테이너를 실행한다. (도커는 컨테이너의 상태를 그대로 이미지로 저장한다! 지금은 우분투와 장고 등등이 설치된 상태를 다시 로드할 수 있도록 이미지로 저장한 것.)
+
+
+
+
+
+##  도커 이미지 만들기 
+
+###  Docker file 작성 
+
+프로젝트 폴더의 가장 상위에 작성한다.
+
+![](/Users/yn_c/notes_wps/image_note/docker_workflow.jpg)  
+
+#####  deploy_eb_docker/Dockerfile
+
+```dockerfile
+#  1. OS설치 : ubuntu 설치 (작성자 표시)
+FROM        ubuntu:16.04
+MAINTAINER  kizmo04@gmail.com
+
+#  2. apt 패키지 업데이트 및 python, ngninx 설치
+RUN         apt-get update
+RUN         apt-get install python3
+RUN         apt-get install python3-pip
+RUN         apt-get install nginx
+
+#  3. 서버의 어플리케이션 디렉토리 생성
+WORKDIR     /srv
+RUN         mkdir app
+WORKDIR     /srv/app
+```
+
+작성한 도커파일을 기반으로 터미널의 Dockerfile을 작성한 위치에서 현재 경로에 도커 이미지를 만든다. `-t`옵션으로 이미지의 이름을 `eb`로 지정해 주었다. 
+
+```shell
+docker build -t eb .
+```
+
+>꿀팁!! 설치할때 예/아니오 묻는거 대비해서 미리 -y 옵션 넣어준다.
+>
+>```dockerfile
+>RUN         apt-get -y update
+>RUN         apt-get -y install python3
+>RUN         apt-get -y install python3-pip
+>RUN         apt-get -y install nginx
+>```
+>
+
+이미지를 빌드할때 Dockerfile 커맨드를 한줄씩 실행하는데, 이때마다 이미지 레이어를 생성하고 저장한다. 
+
+> 결론적으로 도커 빌드는 `임시 컨테이너 생성` > `명령어 수행` > `이미지로 저장` > `임시 컨테이너 삭제` > `새로 만든 이미지 기반 임시 컨테이너 생성` > `명령어 수행` > `이미지로 저장` > `임시 컨테이너 삭제` > … 의 과정을 계속해서 반복한다고 볼 수 있습니다. 
+
+
+
+이제 `docker images` 해보면 eb라는 이름으로 도커 이미지가 생겨있다.
+
+```shell
+(docker_env) ➜  deploy_eb_docker git:(master) ✗ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+eb                  latest              68779008ec73        3 minutes ago       510 MB
+```
+
+이 이미지로 컨테이너를 실행한다.
+
+```shell
+docker run --rm -it eb /bin/bash
+```
+컨테이너를 실행해보면 이제 python, nginx등등을 직접 설치하는 과정이 필요없이 도커파일에 적어둔 것이 다 설치되어 있다. 
+
+>도커 이미지 삭제방법
+>먼저 컨테이너 한꺼번에 지우기 `docker rm $(docker ps -a -q)`
+>그후 이미지 한꺼번에 지우기 `docker rmi $(docker images -q)`
+>
+>안지워지면 컨테이너 먼저 stop하구 지워야함
+>
+>``` 
+>docker stop 컨테이너 id
+>docker rm 컨테이너 id
+>docker rmi 이미지 id 
+>```
+>이렇게 지움
+
+
+
+
+
+##  도커 이미지 리팩토링
+
+###  dockerfile_base 작성 
+
+도커 이미지 만들때 변경사항 있을때마다(디렉토리를 더 만든다던가) 도커파일에 작성된 모든 것을 다시 설치하는건 비효율적이고 시간도 오래걸린다. 변경이 없는 초기 설정에 필요한 것들 설치하는 부분만을 떼어 도커파일 베이스 작성해둔다. 
+
+#####  _Dockerfile_base
+
+```docker
+FROM        ubuntu:16.04
+MAINTAINER  kizmo04@gmail.com
+
+RUN         apt-get -y update
+RUN         apt-get -y install python3
+RUN         apt-get -y install python3-pip
+RUN         apt-get -y install ngin
+```
+
+기존 Dockerfile에서는 pip들 설치하는 부분 주석처리 해두었다. 이제 이렇게 베이스 이미지를 만든다.
+
+```
+docker build -t eb-base . -f Dockerfile_base
+```
+
+
+
+###  none 이미지 지우기 
+
+도커 이미지만들때 생성된 필요없는 (none)이미지는 용량만 차지하므로 삭제한다. 같은 이름:태그로 빌드했을때 이미지가 새로 생성되고 그전에 생성됐던 이미지의 이름과 태그가 사라지는데, none 이미지가 된다. 공간만 차지하므로 지워도 무방. 
+
+> This will display untagged images, that are the leaves of the images tree (not intermediary layers). These images occur when a new build of an image takes the `repo:tag` away from the image ID, leaving it as `<none>:<none>` or untagged. 
+
+다음 커맨드를 입력해서 none이미지들을 한꺼번에 삭제한다.
+
+```
+docker rmi $(docker images -f "dangling=true" -q)
+```
+
+그리고 Dockerfile을 다시 수정한다.  
+
+```
+FROM        eb-base
+MAINTAINER  kizmo04@gmail.com
+
+# RUN         apt-get -y update
+# RUN         apt-get -y install python3
+# RUN         apt-get -y install python3-pip
+# RUN         apt-get -y install nginx
+
+COPY        . /srv/app
+WORKDIR     /srv/app
+
+RUN         pip3 install -r requirements.txt
+RUN         pip3 install uwsgi
+WORKDIR     /srv/app/django_app
+CMD         ["python3", "manage.py", "runserver", "0:8080"]
+```
+
+도커파일 바꾸고 나면 다시 빌드해준다. 
+
+`docker build . -t eb-base -f _Dockerfile_base`
+
+`docker build . -t eb`
+
+
+
+
+
+##  컨테이너 실행하기 
+
+###  호스트 포트와 컨테이너 포트를 연결하기 
+
+이제 컨테이너 실행 커맨드를 입력한다. 
+
+ `docker run -p 4567:8080 eb`
+
+도커 컨테이너의 8080 포트와 로컬의 4567 포트를 연결해주었으므로 localhost:4567로 브라우저에서 서버가 잘 작동되나 테스트해본다.
+
+>docker run 하면 할때마다 컨테이너가 생성되기때문에 `—rm` 붙여준다.
+
+
+
+##  컨테이너에서 uwsgi 를 연결하기 
+
+###  설정파일 작성 
+
+편의상 ec2 서버에 작성했었던 `/etc/uwsgi/sites/app.ini` 의 내용을 복사해서`deploy_eb_docker/.conf-secret/uwsgi-app.ini` 에 복사해준다.
+
+```ini
+[uwsgi]
+chdir = /srv/app/django_app #  앱을 로드하기 전에 디렉토리를 특정한다. 
+module = config.wsgi:application #  WSGI 모듈을 로드한다. 여기서는 우리가 만든 장고 앱
+
+;uid = www-data
+;gid = www-data
+
+socket = /tmp/app.sock
+chmod-socket = 666
+;chown-socket = www-data:www-data #  우분투 컨테이너에서는 root권한 으로 실행되기 때문에 주석처리 했다.
+
+enable-threads = true
+master = true
+vacuum = true
+pidfile = /tmp/app.pid
+
+logger = file:/tmp/uwsgi.log
+logger = internalservererror file:/tmp/uwsgi500.log
+```
+
+
+
+###  도커파일 수정
+
+#####  Dockerfile
+
+```Dockerfile
+FROM        eb-base
+MAINTAINER  kizmo04@gmail.com
+
+#  RUN         apt-get -y update
+#  RUN         apt-get -y install python3
+#  RUN         apt-get -y install python3-pip
+#  RUN         apt-get -y install nginx
+
+COPY        . /srv/app
+WORKDIR     /srv/app
+
+RUN         pip3 install -r requirements.txt
+RUN         pip3 install uwsgi
+
+COPY        .conf-secret/uwsgi-app.ini /etc/uwsgi/sites/app.ini
+```
+도커파일을 수정했으므로 `docker build . -t eb` 로 다시 빌드해서 우선 테스트해본다. `docker run --rm -it -p 4040:8080 eb` 으로 컨테이너를 실행하고 커맨드라인에서 uWSGI를 이용해 H TTP 8080포트로 앱을 배포해본다.
+
+ `uwsgi --http:// :8080 어쩌구`로 실행했더니 에러가 났다. uWSGI가 WSGI앱(우리가 만든 장고 앱) 모듈을 로드할 때 `config/wsgi.py`를 따르게 uwsgi-app.ini에 설정해두었는데, wsgi.py에서 장고 기본설정을 정해주는 경로가 잘못되었다. (이전에 디렉토리명을 config로 수정하고 바꾸지 않아서)
+
+
+
+###  wsgi.py 수정 
+
+#####  wsgi.py 수정
+
+장고에게 어떤 설정을 사용할 것인지 알려주는 부분이다. 
+
+```python
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+```
+
+
+
+###  Dockerfile 과 base 수정 
+
+빠른 실습을 위해 dockerfile과 docker_base 수정하고 다시 빌드한다.
+
+#####  Dockerfile
+
+```dockerfile
+FROM        eb-base
+MAINTAINER  kizmo04@gmail.com
+
+#  RUN         apt-get -y update
+#  RUN         apt-get -y install python3
+#  RUN         apt-get -y install python3-pip
+#  RUN         apt-get -y install nginx
+
+COPY        . /srv/app
+WORKDIR     /srv/app
+
+#  RUN         pip3 install -r requirements.txt
+#  RUN         pip3 install uwsgi
+
+COPY        .conf-secret/uwsgi-app.ini /etc/uwsgi/sites/app.ini
+```
+
+#####  Dockerfile_base
+
+```dockerfile
+FROM        ubuntu:16.04
+MAINTAINER  kizmo04@gmail.com
+
+RUN         apt-get -y update
+RUN         apt-get -y install python3
+RUN         apt-get -y install python3-pip
+RUN         apt-get -y install nginx
+
+RUN         pip3 install django
+RUN         pip3 install uwsgi
+```
+
+
+`.gitignore`에도 `_Dockerfile*`을 추가해준다.
+
+
+
+###  실행해보기 
+
+새로만든 이미지로 호스트4040포트와 컨테이너의 8080포트 를 연결시켜 실행해본다.
+
+`docker run --rm -it -p 4040:8080 eb`
+
+그리고 컨테이너에서 
+
+` uwsgi --http :8080 --chdir /srv/app/django_app/ -w config.wsgi`
+해보면 브라우저에서 localhost:4040으로 접속된다. 우선 종료하고 다시 도커 컨테이너 실행해서 uWSGI 실행한다.
+
+```shell
+uwsgi --http :8080 -i /etc/uwsgi/sites/app.ini 
+```
+
+
+
+이상태에서 명령어 입력이 안되기 때문에 새로운 터미널 창에서 
+
+```shell
+➜  ~ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+7d3f8af47bf3        eb                  "/bin/bash"         14 minutes ago      Up 14 minutes       0.0.0.0:4040->8080/tcp   friendly_albattani
+```
+해서 포트가 연결된 컨테이너 아이디를 확인해보고
+
+`➜  ~ docker exec -it 7d3f8af47bf3 /bin/bash`
+해서 셀로 들어온다. 
+
+`cat /tmp/uwsgi.log`
+해서 브라우저 접속한 로그를 확인해본다.
+
+> app.ini 를 .conf-secret에 넣는 이유는?
+> 그냥 개인설정이라서 
+
+아무튼 Docker 컨테이너에서 uWSGI가 잘 돌아가고 있다!
+
+
+
+##  Docker 에 nginx 연결하기 
+
+###  설정파일 작성 
+아까만든 uwsgi-app.ini 는 다시 .conf에 옮겨준다. 딱히 숨길 필요가 없어서. 
+
+`/etc/nginx/nginx.conf`의 내용을 복사해서
+
+`deploy_eb_docker/.conf/nginx.conf` 에 넣어준다. 유저는 바꿔주자
+
+이번엔 `/etc/nginx/sites-available/app`의 내용을
+
+`.conf/nginx-app.conf`에 넣어준다. 
+
+#####  nginx.conf
+
+```
+user root;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections 768;
+	#  multi_accept on;
+}
+
+http {
+
+	## 
+	#  Basic Settings
+	## 
+
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+	#  server_tokens off;
+
+	server_names_hash_bucket_size 512;
+	#  server_name_in_redirect off;
+
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	## 
+	#  SSL Settings
+	## 
+
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #  Dropping SSLv3, ref: POODLE
+	ssl_prefer_server_ciphers on;
+
+	## 
+	#  Logging Settings
+	## 
+
+	access_log /var/log/nginx/access.log;
+	error_log /var/log/nginx/error.log;
+
+	## 
+	#  Gzip Settings
+	## 
+
+	gzip on;
+	gzip_disable "msie6";
+
+	#  gzip_vary on;
+	#  gzip_proxied any;
+	#  gzip_comp_level 6;
+	#  gzip_buffers 16 8k;
+	#  gzip_http_version 1.1;
+	#  gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+	## 
+	#  Virtual Host Configs
+	## 
+
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+}
+
+
+# mail {
+# 	#  See sample authentication script at:
+# 	#  http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+# 
+# 	#  auth_http localhost/auth.php;
+# 	#  pop3_capabilities "TOP" "USER";
+# 	#  imap_capabilities "IMAP4rev1" "UIDPLUS";
+# 
+# 	server {
+# 		listen     localhost:110;
+# 		protocol   pop3;
+# 		proxy      on;
+# 	}
+# 
+# 	server {
+# 		listen     localhost:143;
+# 		protocol   imap;
+# 		proxy      on;
+# 	}
+# }
+```
+
+#####  nginx-app.conf
+
+```
+server {
+    listen 4040;
+    server_name localhost ec2-13-124-55-38.ap-northeast-2.compute.amazonaws.com ec2.kizmo04.com;
+    charset utf-8;
+    client_max_body_size 128M;
+
+
+    location / {
+        uwsgi_pass    unix:///tmp/app.sock;
+        include       uwsgi_params;
+    }
+}
+```
+
+#####  dockerfiles 수정 
+
+```dockerfile
+FROM        eb-base
+MAINTAINER  kizmo04@gmail.com
+
+# RUN         apt-get -y update
+# RUN         apt-get -y install python3
+# RUN         apt-get -y install python3-pip
+# RUN         apt-get -y install nginx
+
+COPY        . /srv/app
+WORKDIR     /srv/app
+
+# RUN         pip3 install -r requirements.txt
+# RUN         pip3 install uwsgi
+
+COPY        .conf/uwsgi-app.ini /etc/uwsgi/sites/app.ini
+COPY        .conf/nginx.conf    /etc/nginx/nginx.conf
+COPY        .conf/nginx-app.conf /etc/nginx/sites-available/app.conf
+RUN         ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/app.conf
+```
+
+설정파일 내용을 서버에 반영해주기 위해 도커 파일 수정했다. 그리고 다시 빌드한다.
+
+
+
+###  Docker 컨테이너 안에서 서비스 무중단 
+
+도커 안쪽에서는 systemctl 즉, 서비스 형태로 프로그램을 실행하는것이 불가능해서 다른 방법으로 실행해야 한다. [링크](https://bestna.wordpress.com/2014/11/10/docker-container-run-%EC%9D%B4%EC%95%BC%EA%B8%B0/)
+
+```Shell
+docker run --rm -it -p 5050:4040 eb
+```
+
+하고 컨테이너 안에서 nginx uwsgi 함 근데 이렇게 하다가 프로세스가 꺼지면 안되니까
+
+supervisor라는 것을 사용한다 
+
+###  supervisor 추가 
+
+supervisor는 프로세스가 꺼지지 않게 해주는 거. supervisord로 실행하면 데몬으로 백그라운드에서 돌면서 계속 실행시켜준다.  [링크:10분만에 익히는 supervisor 설치와 사용법](https://jwkcp.github.io/2016/11/07/how-to-use-supervisor-in-one-minute/)
+
+#####  .conf/supervisor-app.conf 추가
+
+```
+[program:uwsgi]
+command = uwsgi --ini /etc/uwsgi/sites/app.ini
+
+[program:nginx]
+command = nginx
+```
+
+#####  dockerfile 수정
+
+```dockerfile
+FROM        eb-base
+MAINTAINER  kizmo04@gmail.com
+
+# RUN         apt-get -y update
+# RUN         apt-get -y install python3
+# RUN         apt-get -y install python3-pip
+# RUN         apt-get -y install nginx
+
+COPY        . /srv/app
+WORKDIR     /srv/app
+
+# RUN         pip3 install -r requirements.txt
+# RUN         pip3 install uwsgi
+
+COPY        .conf/uwsgi-app.ini /etc/uwsgi/sites/app.ini
+COPY        .conf/nginx.conf    /etc/nginx/nginx.conf
+COPY        .conf/nginx-app.conf /etc/nginx/sites-available/app.conf
+COPY        .conf/supervisor-app.conf   /etc/supervisor/conf.d/
+RUN         ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/app.conf
+
+EXPOSE      4040
+CMD         supervisord -n
+```
+도커 안에서 4040 포트를 열어주고 수퍼 바이저를 실행하고 설정파일을 복사하게 해줬다. supervisord는 데몬으로 돌아가는 슈퍼바이저 
+
+#####  docker_base 수정
+
+```dockerfile
+FROM        ubuntu:16.04
+MAINTAINER  kizmo04@gmail.com
+
+RUN         apt-get -y update
+RUN         apt-get -y install python3
+RUN         apt-get -y install python3-pip
+RUN         apt-get -y install nginx
+RUN         apt-get -y install supervisor
+
+RUN         pip3 install django
+RUN         pip3 install uwsgi
+```
+supervisor를 인스톨 해준다.
+
+#####  nginx.conf 수정
+
+```
+user root;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+daemon off; 
+```
+맨 위에 daemon off 추가해서 데몬으로 돌아가는 supervisor를 데몬 아닌것처럼 실행되게 해준다.
+
+#####  실행 테스트 
+
+이제 다시 
+
+`docker run --rm -it -p 5050:4040 eb ` 로 실행. 로컬의 5050 포트를 도커안의 4040 포트로 연결해줬으니 localhost:5050 으로 브라우저에서 테스트해본다.
+
+> nginx로 접속했을때 500에러 뜨면 `/var/log/nginx/error.log`확인 
+
+##  elasticbeanstalk 에 올리기 
+
+그동안 빠른 테스트를 위해 만들었던 dockerfile_base는 안녕!
+
+###  dockerfile 수정 
+
+```dockerfile
+FROM        ubuntu:16.04
+MAINTAINER  kizmo04@gmail.com
+
+COPY        . /srv/app
+WORKDIR     /srv/app
+
+RUN         apt-get -y update
+RUN         apt-get -y install python3
+RUN         apt-get -y install python3-pip
+RUN         apt-get -y install nginx
+RUN         apt-get -y install supervisor
+
+RUN         pip3 install -r requirements.txt
+RUN         pip3 install uwsgi
+
+COPY        .conf/uwsgi-app.ini /etc/uwsgi/sites/app.ini
+COPY        .conf/nginx.conf    /etc/nginx/nginx.conf
+COPY        .conf/nginx-app.conf /etc/nginx/sites-available/app.conf
+COPY        .conf/supervisor-app.conf   /etc/supervisor/conf.d/
+RUN         ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/app.conf
+
+EXPOSE      4040
+CMD         supervisord -n
+```
+
+이제 더이상 base를 참조하지 않는다.
+
+###  Elastic Beanstalk 시작하기
+
+[Elastic Beanstalk](https://aws.amazon.com/ko/elasticbeanstalk/?sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=google&sc_medium=Brand_Beanstalk_E&sc_content=Brand_Elastic_Beanstalk_E&sc_detail=aws%20elastic%20beanstalk&sc_category=beanstalk&sc_segment=150437681477&sc_matchtype=e&sc_country=KR&s_kwcid=AL!4422!3!150437681477!e!!g!!aws%20elastic%20beanstalk&ef_id=WIsrPwAABLM6ZuCp:20170310073542:s)설명
+
+[도커 컨테이너에서 Elastic Beanstalk 앱 배포하기](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker.html)  
+
+도커 컨테이너가 죽으면 엘라스틱 빈스톡이 알아서 다시 실행해줌
+
+[Elastic Beanstalk 시작하기](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/GettingStarted.html)를 따라해본다.(나중에 다시 읽어보기)
+
+우리는 우선 콘솔에서 시작해봄
+
+###  설치하기 
+
+1. 로컬 프로젝트 폴더에서 `pip install awsebcli`로 설치한다.
+
+2. aws iam console에서 권한을 줘야 한다. 
+
+   IAM 콘솔 - Users - 내 유저선택 - add permision - attach 어쩌구 - elasticbeanstalk full access
+
+3. 로컬의 프로젝트 폴더에서 `eb init` 하고 잘 선택함.  하고나면 `.elasticbeanstalk`디렉토리와 설정파일이 생겨있다. 
+
+
+`eb create`하고 엔터 엔터, DNS CNAME은 전세계에서 고유한 값임.
+
+프로젝트 폴더에 Dockerfile.aws.json 생성한다.
+
+Dockerfile.aws.json
+
+```json
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "fc-deploy-eb",
+      "host": {
+        "sourcePath": "var/app/current/django_app"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "fc-deploy-eb",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 4040
+        }
+      ]
+    }
+  ]
+}
+```
+
+이후 
+
+`eb deploy` eb는 git폴더가 있으면 커밋된 애들만 전송을 한다. 
+
+디플로이를 해본다!
+
+> `eb logs` 로그를 확인
+>
+> `eb open` 실행?
+
+`eb open` 디플로이 성공 후에 오픈해본다. 에러가 남. 
+
+eb ssh 하면 접속이 됨. /var/log 로 가면 로그가 쌓여있다. eb-activity.log 를 확인해본다. (이건별로,,,)
+
+deploy할때마다 우분투 받는것부터 설치랑 전부 다 하기 때문에 오래걸림. 
+
+> 에러 로그 확인하기!
+>
+> `eb ssh`하고 
+>
+> ```shell
+> [ec2-user@ip-172-31-15-214 ~]$ sudo docker exec -it `sudo docker ps --no-trunc -q | head -n 1` /bin/bash
+> root@49e378316da5:/srv/app #  cd /tmp
+> root@49e378316da5:/tmp #  l
+> app.pid  app.sock=  uwsgi.log
+> root@49e378316da5:/tmp #  vi uwsgi.log 
+> ```
+>
+> 
+
+###  .ebignore 추가 
+
+.gitignore에 .conf-secret 이 추가되어서 커밋할때 .conf-secret 내용이 eb deploy할때 안들어가진다. 그래서 settings.py에 config 파일을 못 가져와서 에러가 남.  .ebignore 에 .conf-secret 을 빼준다
+
+#####  .ebignore 파일 작성 
+
+```
+!.conf-secret/
+```
+
+다시 eb deploy 하고 eb open 해보면 
+
+```
+Invalid HTTP_HOST header: 'fc-wps-eb.ap-northeast-2.elasticbeanstalk.com'. You may need to add 'fc-wps-eb.ap-northeast-2.elasticbeanstalk.com' to ALLOWED_HOSTS.
+```
+
+이런 에러가 뜬다. 아직 ALLOWED HOSTS 를 설정하지 않았기 때문. 
