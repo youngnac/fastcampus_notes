@@ -1,13 +1,13 @@
 2017-2-3
 [mylink]([]()Findall)
-[j](##SPlit)
+[j](## SPlit)
 
-#Regular Expresison
+# Regular Expresison
 
 > 특정한 패턴에 일치하는 복잡한 문자열을 처리
 > 
 > 표준 모듈 `re`를 사용해서 정규표현식을 사용할 수 있다. (파이썬 내장)
-##Match
+## Match
 >일반적으로 match는 소스의 시작부분에서 부터 찾는다 .
 >
 >>p: pattern
@@ -25,7 +25,7 @@ m = re.match(p, source)
 p2 = re.compile('.*Lady')
 m2 = re.match(p2, source)
 ```
-##Search
+## Search
 > 첫 번째 일치하는 패턴 찾기
 
 ```python
@@ -35,7 +35,7 @@ if m3:
     print(m3.group())
 ```
 
-##Findall
+## Findall
 >일치하는 모든 패턴 찾아 list로 반환
 
 ```python 
@@ -45,18 +45,18 @@ if m3:
 ['Lady', 'Lady']
 ```
 
-##Split
+## Split
 
 
-##정규 표현식의 패턴
-###\b \B
+## 정규 표현식의 패턴
+### \b \B
 [stack overfloow](http://stackoverflow.com/questions/6664151/difference-between-b-and-b-in-regex)
 
 
-#예외처리
+# 예외처리
 
-#file
-##offset
+# file
+## offset
 ```python
 f = open('skill.txt','wt')
 

@@ -1,17 +1,17 @@
-#django girls
+# django girls
 (in cmd: `./manage.py`
-##basic setup
-###directory, pyenv, install django, git
+## basic setup
+### directory, pyenv, install django, git
 1. create directory for the project : `mkdir djangogirls_tutorial`
 2. `cd djangogirls_tutorial`
 3. create virtual enviorment : `pyenv virtualenv 3.4.3 djangogirl`
 4. set pyenv : `pyenv local djangogirl`
 5. install django package :`pip install django`
 6. create ignore file : `vi .gitignore`
-	- pycharm (.idea 상단, 무시)
-	- django
-	- python
-	- macos
+ - pycharm (.idea 상단, 무시)
+ - django
+ - python
+ - macos
 7. create requirements.txt that tells required packages for the project: `pip freeze > requirements.txt`
 8. initialize git : `git init`
 9. create repository
@@ -19,12 +19,12 @@
 11. Do the first commit
 12. `git push -u origin master`
 
-##Start your project
+## Start your project
 **`django-admin startproject mysite`**
 
-###Lets look @ tree
+### Lets look @ tree
 ```
-├── djangogirls			# changed from mysite
+├── djangogirls			#  changed from mysite
 │   ├── manage.py
 │   └── mysite
 │       ├── __init__.py
@@ -34,29 +34,29 @@
 └── requirements.txt
 ```
 
-##Change settings.py
+## Change settings.py
 mysite/settings.py
-###timezone
+### timezone
 ```python
 TIME_ZONE = 'Asia/Seoul'
 ```
-###set STATIC_root
+### set STATIC_root
 ```python
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 ```
-##Database
+#### Database
 >DATABASE is installed in mysite/setting.py 
 
-###to create DB:
+#### to create DB:
 - **`python manage.py migrate`**
 
-##Lets run server:
+#### Lets run server:
 - **`python manage.py runserver`**
 - check with browser : [link](http://127.0.0.1:8000/)
 
-#blog를 만들어 보자:
-##Object Oriented...
+#### blog를 만들어 보자:
+#### Object Oriented...
 Post (object): 
 
 - (properties)
@@ -68,12 +68,12 @@ Post (object):
 
 * method: publish
 
-##start your app - blog
+#### start your app - blog
 1. `python manage.py startapp blog`
 2. add `blog.apps.BlogConfig` in `INSTALLED_APPS =[...` of mysite/settings.py 
-	- INSTALLED_APPS 순서는: 장고, 외부 library, 그리고 우리가 만드는 apps
+ - INSTALLED_APPS 순서는: 장고, 외부 library, 그리고 우리가 만드는 apps
 
-##models.py and create tables for models
+#### models.py and create tables for models
 > for obejct 'Post', properties with fields and methods 
 
 ```python
@@ -81,15 +81,15 @@ from django.db import models
 from django.utils import timezone
 
 class Post(models.Model):
-    #properties and fields
+    # properties and fields
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
-    #long text without limit
+    # long text without limit
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
    
-    #method
+    # method
     def publish(self):
         self.published_date = timezone.now()
         self.save()
@@ -98,48 +98,48 @@ class Post(models.Model):
         return self.title
 ```
 
-###notify these changes in models.py to django
+#### notify these changes in models.py to django
 - **`python manage.py makemigrations blog`**
 - **`python manage.py migrate blog`**
 > now Post model is in DB
 
-##Admin:
+#### Admin:
 
-###blog/admin.py
+##### blog/admin.py
 - make our model visible on admin page
 
 ```python
 from django.contrib import admin
 from .models import Post
 
-#to make our model visible on admin page
+# to make our model visible on admin page
 admin.site.register(Post)
 ```
-###create superuser to get admin control
+##### create superuser to get admin control
 - **`python manage.py createsuperuser`**
 - input userid, email, pw
 - try: runserver and login 
 
-####make some posts as admin
+##### make some posts as admin
 
-##url
+#### url
 >django uses URLconf to find matching urls with views 
 
-###mysite/urls.py
+##### mysite/urls.py
 
 ```python
 from django.conf.urls import include, url
 from django.contrib import admin
 
     urlpatterns = [
-        #url for admin 
+        # url for admin 
         url(r'^admin/', include(admin.site.urls)),
-        #import blog.urls
+        # import blog.urls
         url(r'', include('blog.urls'))
     ]
 ```
 
-###blog/urls.py
+##### blog/urls.py
 > import Django's function url and all of our views from the blog application.
 
 ```python
@@ -147,15 +147,15 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-	#directs from 'http://127.0.0.1:8000/' to views.post_list
+	# directs from 'http://127.0.0.1:8000/' to views.post_list
     url(r'^$', views.post_list, name = 'post_list'),
 	]
 ```
 
-##views
+##### views
 >- request information from the model and pass it to a template
 >- put the logic of app
-###blog/views.py
+##### blog/views.py
 > takes a request and return a function render that renders our tmeplate
 
 ```python 
@@ -164,8 +164,8 @@ def post_list(request):
     return render(request, 'blog/post_list.html', {})
 ```
 
-##templates 
-###templates/blog/post_list.html
+##### templates 
+##### templates/blog/post_list.html
 >before putting codes in post_list.html
 >change settings.py to set templates' path
 >add 
@@ -204,7 +204,7 @@ TEMPLATES= [{'DIRS': [
 </html>
 ```
 
-##using shell
+#### using shell
 
 **`./manage.py shell`**
 >>`publised_date__lte`: less than equal (gte: greater than equal)
@@ -232,9 +232,9 @@ TEMPLATES= [{'DIRS': [
 <QuerySet [<Post: post 6>, <Post: post 3 oh yeahhhh>, <Post: post 2 yeah>, <Post: post 1>]>
 ```
 
-##views, html edited to show real posts
+#### views, html edited to show real posts
 
-###views.py
+##### views.py
 ```python
 from django.shortcuts import render
 from django.utils import timezone
@@ -245,7 +245,7 @@ def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 ```
-###templates/blog/post_list.html
+#### templates/blog/post_list.html
 ```html
 <div>
     <h1><a href="/">Django Girls Blog</a></h1>
@@ -261,12 +261,5 @@ def post_list(request):
 ```
 
  
- 
- 
- 
- 
- 
- 
- 
- 
+
  

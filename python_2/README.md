@@ -1,4 +1,4 @@
-#day1
+# day1
 >
 >- scope 
 >- closure
@@ -7,19 +7,19 @@
 >- decorator
 >- generator
 
-#day2
+# day2
 >- learn how to crawl
 >- BeautifulSoup, request
 >- crawl from naver webtoon page
 >- module, package
 
-#day3 
+# day3 
 >- class
 >- method
 >- class
 
-#pyenv setting
+# pyenv setting
 
-#day4
+# day4
 >- regular expression
 >- 예외처리

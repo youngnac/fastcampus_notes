@@ -1,5 +1,5 @@
 2017-2-1 w4.d2
-####crawling practice
+#### crawling practice
 >where: projects/Python/crawling/crawl.py
 
 - `f12 + alt` open terminal on pycharm
@@ -21,7 +21,7 @@
 	- alias py="open -a /Applications/PyCharm\ CE.app/Contents/MacOS/pycharm"
 	- alias cd-wpsnotes="cd /Users/yn_c/notes_wps/fastcampus_notes"
 	- alias open-wpsnotes="open /Users/yn_c/notes_wps/fastcampus_notes"
-##How to Crawl: 웹툰 에피소드 제목, 생성일, 링크 
+## How to Crawl: 웹툰 에피소드 제목, 생성일, 링크 
 - 우선 url을 찾아보자:
 > 
 http://comic.naver.com/webtoon/list.nhn?titleId=626907
@@ -36,7 +36,7 @@ http://comic.naver.com/webtoon/list.nhn?titleId=626907&page=2
 >		- **communication.py** : 서버에서 긁어오기
 >		- **page.py** : 그 외 모든 동작을 하는 함수들
 
-###commuincation.py
+### commuincation.py
 
 > request를 사용하여 get, find text를 해야하기 때문에 `import request`
 > 
@@ -54,15 +54,15 @@ from bs4 import BeautifulSoup
 
 ```python
 def get_soup_from_url(url, params=None):
-    # requests.get요청을 보낸 결과값(response객체)을 r변수에 할당
+    #  requests.get요청을 보낸 결과값(response객체)을 r변수에 할당
     r = requests.get(url, params=params)
-    # response객체에서 text메서드를 사용해 내용을 html_doc변수에 할당
+    #  response객체에서 text메서드를 사용해 내용을 html_doc변수에 할당
     html_doc = r.text
-    # BeautifulSoup객체를 생성, 인자는 html text
+    #  BeautifulSoup객체를 생성, 인자는 html text
     soup = BeautifulSoup(html_doc, 'lxml')
     return soup
 ```
-###page.py
+### page.py
 >대부분의 동작을 실행하는 함수들을 작성한다.
 >
 >함수들을 실행하기에 앞서, url에 request하여 생성된 soup을 import해야 한다. 
@@ -79,20 +79,20 @@ from .communication import get_soup_from_url
 3. 페이지 마다 리스트를 뽑는다
 4. 모든 리스트를 뽑는다
 
-####1. 특정 페이지 soup get
+#### 1. 특정 페이지 soup get
 >웹툰의 id와 페이지 넘버를 받아 communication.py로 전달할 params를 생성
 >
 >여기서 url 또한 설정한다.
  
 ```python
 def get_soup_from_naver_webtoon_by_page(webtoon_id, page=1):
-    # 네이버웹툰 사이트 주소
+    #  네이버웹툰 사이트 주소
     url = 'http://comic.naver.com/webtoon/list.nhn'
-    # GET parameters로 전달할 값들의 dict
+    #  GET parameters로 전달할 값들의 dict
     params = {'titleId': webtoon_id, 'page': page}
     return get_soup_from_url(url, params)
 ``` 
-####2.첫페이지의 최신화가 몇번인지 찾기
+#### 2.첫페이지의 최신화가 몇번인지 찾기
 >우선 이전 function에서의 결과, 즉 default page인 첫 페이지의 soup을 받고
 >
 ```python
@@ -114,10 +114,10 @@ td = tr.find('td', class_='title')
 		href = a.get('href')
 ```
 >>
->>to get # of episode
+>>to get #  of episode
 >>>```python
 import re
-	# 정규표현식, 아무문자열이나 반복되다가 ?no=또는 &no=이후의 숫자와 매칭된다
+	#  정규표현식, 아무문자열이나 반복되다가 ?no=또는 &no=이후의 숫자와 매칭된다
 	p = re.compile(r'.*[?&]no=(\d+).*')
 	m = re.match(p, href)
 ```
@@ -133,13 +133,13 @@ if m:
 >
 >`return int(recent_episode_number)`
 
-####3. 해당 페이지 리스트 뽑기 
+#### 3. 해당 페이지 리스트 뽑기 
 >마찬가지로 soup을 불러오고  list를 담을 episode_list 생성해 둔다.
 > 
 >```python
 def get_episode_list_from_page(webtoon_id, page=1):
     soup = get_soup_from_naver_webtoon_by_page(webtoon_id, page)
-    # 리턴할 리스트
+    #  리턴할 리스트
     episode_list = []
 ```
 >soup 속에서...
@@ -149,7 +149,7 @@ def get_episode_list_from_page(webtoon_id, page=1):
 tr_list = soup.find_all('tr')
     for index, tr in enumerate(tr_list):
         td_list = tr.find_all('td')
-        # 각 row가 자식 td요소를 4개 미만으로 가지면 loop건너뜀
+        #  각 row가 자식 td요소를 4개 미만으로 가지면 loop건너뜀
         if len(td_list) < 4:
             continue
 ```
@@ -176,10 +176,10 @@ tr_list = soup.find_all('tr')
     return episode_list
 ```
 
-####4. 모든 페이지 수를 구하여 페이를 다 돌며 리스트 다 뽑아온다
+#### 4. 모든 페이지 수를 구하여 페이를 다 돌며 리스트 다 뽑아온다
 >함수 생성 후 
 >
->우선 2번 함수`get_webtoon_recent_episode_number`에서 구한 최신 에피소드 # (즉 총 episode의 #)를 사용해 몇개의 페이지가 있는지 구한다
+>우선 2번 함수`get_webtoon_recent_episode_number`에서 구한 최신 에피소드 #  (즉 총 episode의 # )를 사용해 몇개의 페이지가 있는지 구한다
 >>페이지 마다 10개씩 에피소드가 있다는 것(`page_count =10`)을 고려한다
 >
 ```python
@@ -201,7 +201,7 @@ def get_webtoon_episode_list(webtoon_id):
     return total_episode_list
 ```
 
-###crawl.py
+### crawl.py
 >이 파일에서는 궁극적으로 원하는 동작을 실행한다.
 >
 >parser의 page.py의 function을 불러와 실행한다. 
@@ -233,25 +233,25 @@ f.write('</body></html>')
 f.close()
 ```
 
-#Module Package
+# Module Package
 >where: projects/Python/package/files.py
 
-## Module
+##  Module
 >파이썬 파일은 각각 하나의 모듈
 >실행이나 함수의 정의, 단순 변수의 모음(etc...)의 여러 역할
 
-###\_\_name__
+### \_\_name__
 > 모듈의 이름
 > 모듈 이름은 모듈의 전역변수 \_\_name__에서 확인 할 수 있다.
 > 파이썬 인터프리터가 실행한 모듈의 경우, \_\_main\_\_이라는 이름을 가진다
 
-####namespace
+#### namespace
 >각 모듈은 독립된 네임스페이스(이름공간)를 가진다. 메인으로 사용되고 있는 모듈이 아닌 import된 모듈의 경우, 해당 모듈의 네임스페이스를 사용해 모듈 내부의 데이터에 접근한다.
 
 
 >
 
-## Package
+##  Package
 > 패키지는 모듈들을 모아 둔 특별한 폴더 (일반적인 폴더와는 다르다)
 
 > 폴더를 패키지로 만들면 계층 구조를 가질 수 있음
@@ -260,6 +260,6 @@ f.close()
 
 >패키지를 만들 때는 패키지로 사용할 폴더에 __init__.py파일을 넣어주면, 해당 폴더는 패키지로 취급된다. (비어있어도 무관하다)
 
-####*, \_\_all__
+#### *, \_\_all__
 
 >패키지에 포함된 하위 패키지 및 모듈을 불러올 때, *을 사용해 해당 모듈의 모든 식별자들 가져옴

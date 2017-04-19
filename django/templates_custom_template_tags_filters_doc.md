@@ -1,11 +1,11 @@
 [link](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/)
 
-#Custom template tags and filters
+# Custom template tags and filters
 > with the need of functionality that is not provided, you can **EXTEND the template engine** by **defining custom tags and filters** using python 
 
 > then, use **`{% load %}`**
 
-##Code Layout
+## Code Layout
 - place to specify custom template tags and filter: inside a Django app
 - Newly installed apps must contain a `templatetags` dir, at the same level as `models.py`, `views.py`, etc.
 	* must be a Python package (with `\_\_init__.py`)
@@ -20,7 +20,7 @@
 	register = template.Library()
 	```
 
-##Writing Custom Template Filters
+## Writing Custom Template Filters
 - customer filters take on or two arguments
 	1. the value of the variable (input) - does not have to a string
 	1. the value of the argument - may have a default value or left out
@@ -39,11 +39,11 @@
 	
 - filter ex with 1 arg : Converts a string into all lowercase
 	```python
-	def lower(value): # Only one argument.
+	def lower(value): #  Only one argument.
 	    return value.lower()
 	```
 
-###Registering custom filters
+### Registering custom filters
 -
 **` django.template.Libary.filter()`**
 
@@ -62,14 +62,14 @@
 	def cut(value, arg):
 		return value.replace(arg,'')
 		
-	@register.filter	#filter name not given
+	@register.filter	# filter name not given
 	def lower(value):
 		return value.lower()
 	```
 
 - if name is NOT given at a decorator, django use the function's name as a filter name
 
-###Template filters that expect strings
+### Template filters that expect strings
 -
 **`django.template,defaultfilters.stringfilter()`**
 
@@ -81,14 +81,14 @@
 	from djangon.template.defaultfilters import stringfilter
 	
 	register = template.Library()
-	#integers will just pass
+	# integers will just pass
 	@register.filter
 	@stringfilter
 	def lower(value):
 		return value.lower()
 	```
 
-####Filters and auto-escaping
+#### Filters and auto-escaping
 - auto-escaping behavior according to different types of strings
 	* raw strings: if auto-escaping in effect; escaped and presented unchaged
 	* safe strings: marked as safe from further escaping at output time; commonly used for output that contains raw HTML 
@@ -136,7 +136,7 @@ def add_xx(value):
 		    return mark_safe(result)
     ```
 
-###Filters and time zones
+### Filters and time zones
 -
 
 - custom filter operating on `datetime` objects
@@ -151,10 +151,10 @@ def add_xx(value):
         	 return ''
 	```
 
-##Writing Custom Template Tags
+## Writing Custom Template Tags
 > tags are complex and filters since they can do anything
 
-###Simple tags
+### Simple tags
 **`django.template.Library.simple_tag()`**
 
 - takes function that accepts any number of args, wraps it in a render function and registers it with the template system (`register = template.Library()`)
@@ -170,12 +170,12 @@ def current_time(format_string):
     return datetime.datetime.now().strftime(format_string)
 ```
 
-- [link to strftime()](https://docs.python.org/3/library/time.html#time.strftime)
+- [link to strftime()](https://docs.python.org/3/library/time.html# time.strftime)
 - our function is **passed the current value** of the variable *if the* *arg was a template variable*
 - `simple_tag` passes it output through `conditional_escape()` if template context is in autoescape mode 
 - when you template tag **needs access to the current context**, use **`takes_context=True`** arg when registering
 	* first arg must be context
-	* [more on takes_context](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/#howto-custom-template-tags-inclusion-tags)
+	* [more on takes_context](https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/# howto-custom-template-tags-inclusion-tags)
 
 ```python
 @register.simple_tag(takes_context=True)
@@ -214,7 +214,7 @@ def my_tag(a, b, *args, **kwargs):
 <p>The time is {{ the_time }}.</p>
 ```
 
-###Inclusion tags
+### Inclusion tags
 **`django.template.Library.inclusion_tag()`**
 
 - displays some data by rendering another template
@@ -249,7 +249,7 @@ def jump_link(context):
 	* instead of :`Jump directly to <a href="{{ link }}">{{ title }}</a>`
 	* just load tag: `{% jump_link %}` > without any args, this custom tags has automatic access to the context
 
-###Assignment tags:
+### Assignment tags:
 **`django.template.Library.assignment_tag()`**
 
 - ease the creation of tags setting a variable in the context

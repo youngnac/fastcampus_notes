@@ -1,33 +1,33 @@
-#django tutorial
+# django tutorial
 
-#01:
-##Install Django
+# 01:
+## Install Django
 1. install git
 2. `git clone git://github.com/django/django.git`
 3. set virtual environment (pyenv virtualenv...)
 4. Install django: `pip install -e django/`
 5. check version: `python -m django --version`
 
-##start my project:
+## start my project:
 1. 코드를 저장할 디렉토리로 이동 한 후
 2. `django-admin startproject mysite`
 3. `mysite` directory 가 생성됨
 
 ```
-mysite/			# 단순히 프로젝트를 담는 공간
-    manage.py		#상호작용 하는 커맨드라인의 유틸리티
-    mysite/		#project 를 위한 실제 Python 패키지들이 저장
-        __init__.py		# 패키지 처럼 다루라고 알려주는 용도
-        settings.py		# project 의 환경/구성을 저장
-        urls.py			#URL 선언을 저장
-        wsgi.py			#project 를 서비스 하기 위한 WSGI 호환 웹 서버의 진입점
+mysite/			#  단순히 프로젝트를 담는 공간
+    manage.py		# 상호작용 하는 커맨드라인의 유틸리티
+    mysite/		# project 를 위한 실제 Python 패키지들이 저장
+        __init__.py		#  패키지 처럼 다루라고 알려주는 용도
+        settings.py		#  project 의 환경/구성을 저장
+        urls.py			# URL 선언을 저장
+        wsgi.py			# project 를 서비스 하기 위한 WSGI 호환 웹 서버의 진입점
 ``` 
-###서버 테스트
+### 서버 테스트
 **`python manage.py runserver`**
 >`python manage.py runserver 8080` : 사용 포트 명시 가능
 >`python manage.py runserver 0.0.0.0:8000` : 다른 IP이용
 
-##create "polls" app
+## create "polls" app
 **`python manage.py startapp polls`**
 ```
 polls/
@@ -40,12 +40,12 @@ polls/
     tests.py
     views.py
 ```
-###check your tree
+### check your tree
 >`tree`
-#####*트리에서 pycache 숨기기: tree -I '__pycache__'*
+##### *트리에서 pycache 숨기기: tree -I '__pycache__'*
 >alias 설정함(tree-pycache)
 
-###create first view
+### create first view
 >polls/views.py 에 view 작성
 >
 ```python
@@ -61,7 +61,7 @@ from django.conf.urls import url
 from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    # url에 처음부터 끝 아무것도 없을 때 즉 아무것도 입력되지 않았을 떄 views.index를 실행한다
+    #  url에 처음부터 끝 아무것도 없을 때 즉 아무것도 입력되지 않았을 떄 views.index를 실행한다
 ]
 ```
 >mystie/url.py 에
@@ -71,17 +71,17 @@ urlpatterns = [
 from django.conf.urls import include, url
 from django.contrib import admin
 urlpatterns = [
-	#polls로 시작하고 그 뒤에 뭐든 오든 다음의 요즘은..polls.urls에서 시행한다
+	# polls로 시작하고 그 뒤에 뭐든 오든 다음의 요즘은..polls.urls에서 시행한다
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
 ]
 ```
 
-#02:
-###DB설정
+# 02:
+### DB설정
 >mysite/settings.py 에서 `DATABASE =...` engine, name설정
 
-###INSTALLED_APPS
+### INSTALLED_APPS
 >`INSTALLED_APPS` : Django 인스턴스에서 활성화된 모든 Django 어플리케이션들의 이름
 >
 >* django.contrib.admin – 관리용 사이트
@@ -91,11 +91,11 @@ urlpatterns = [
 >* django.contrib.messages – 메세징 프레임워크.
 >* django.contrib.staticfiles – 정적 파일을 관리하는 프레임워크.
 
-##Migrate
+## Migrate
 **`python manage.py migrate`**
 > migrate 명령은 INSTALLED_APPS 의 설정을 탐색하여, mysite/settings.py 의 데이터베이스 설정과 app 과 함께 제공되는 데이터베이스 migrations에 따라 필요한 데이터베이스 테이블을 생성. 
 
-##Model
+## Model
 >부가적인 메타데이터를 가진 데이터베이스의 구조(layout)
 >in polls app: choice and question
 >
@@ -115,31 +115,31 @@ class Choice(models.Model):
 >>- CharField 의 경우 max_length
 >>- default=0 : votes 의 기본값을 0
 
-##activate models
+## activate models
 >models 은 이러한 역할을 한다:
 
 >- 이 app 에 대하여 데이터베이스 스키마 생성 (CREATE TABLE statements)
 >- Question 과 Choice 객체에 접근하기 위한 Python 데이터베이스 접근 API 를 생성
 
-####INSTALLED_APPS: (모델로 인해)
+#### INSTALLED_APPS: (모델로 인해)
 >`INSTALLED_APPS = ['polls.apps.PollsConfig']` 추가됨.
 
-###Make migrations
+### Make migrations
 **`python manage.py makemigrations polls`**
 >모델을 변경시킨 사실과(이 경우에는 새로운 모델을 만들었습니다) 이 변경사항을 migration 으로 저장시키고 싶다는 것을 Django 에게 알림
 
-#####SQL상의 변동사항 보기
+##### SQL상의 변동사항 보기
 > `python manage.py sqlmigrate polls 0001`
 
-###MIGRATE:
+### MIGRATE:
 >`python manage.py migrate`
 >
 >테이블에 손대지 않고도 모델의 반복적인 변경 가능
 
-###manage.py as shell
+### manage.py as shell
 >`python manage.py shell`
 
-##in Shell:
+## in Shell:
 >모델을 사용해보자
 
 ```python
@@ -159,7 +159,7 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 >>> Question.objects.all()
 <QuerySet [<Question: Question object>]>
 ```
-##\_\_str__형식으로 model 수정
+## \_\_str__형식으로 model 수정
 >Django 가 자동으로 생성하는 관리 사이트 에서도 객체의 표현을 사용하기 때문에...이렇게 수정하는 것이 용이
 
 ```python
@@ -173,7 +173,7 @@ class Choice(models.Model):
         return self.choice_text
 ```
 
-###in Shell: (` python manage.py shell_plus`
+### in Shell: (` python manage.py shell_plus`
 ```python
 >>> from polls.models import Question, Choice
 >>> Question.objects.all()
@@ -211,17 +211,17 @@ True
 >>> c.delete()
 ```
 
-##Admin module
-###login as admin
+## Admin module
+### login as admin
 1. python manage.py createsuperuser
 2. Username: admin
 3. Email address: admin@example.com
 4. PW
 
-###개발 서버 실행
+### 개발 서버 실행
 >**`python manage.py runserver`**
 
-###Make the poll app modifiable in the admin(관리자로 app 수정하도록 설정):
+### Make the poll app modifiable in the admin(관리자로 app 수정하도록 설정):
 >tell admin that Question objects have an admin interface
 
 >polls/admin.py
@@ -249,8 +249,8 @@ then check if it really changed...
 datetime.datetime(2017, 2, 5, 10, 14, 49, tzinfo=<UTC>)
 ```
 
-#03:
-#View
+# 03:
+# View
 > type of webpage in your application that often serves a specific function
  
 1. Question “index” – displays the latest few questions.
@@ -258,12 +258,12 @@ datetime.datetime(2017, 2, 5, 10, 14, 49, tzinfo=<UTC>)
 3. Question “results” – displays results for a particular question.
 4. Vote action – handles voting for a particular choice in a particular question.
 
-###How to get from a URL to a view?
+### How to get from a URL to a view?
 > Django uses what are known as ‘**URLconfs**’.
 
 
-##Writing Views
-###views.py
+## Writing Views
+### views.py
 
 ```python
 def detail(request, question_id):
@@ -277,29 +277,29 @@ def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
 ```
 
-###url.py
+### url.py
 
 ```python
 from django.conf.urls import url
 from . import views
 urlpatterns = [
-    # ex: /polls/
+    #  ex: /polls/
     url(r'^$', views.index, name='index'),
-    # ex: /polls/5/
+    #  ex: /polls/5/
     url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
-    # ex: /polls/5/results/
+    #  ex: /polls/5/results/
     url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
-    # ex: /polls/5/vote/
+    #  ex: /polls/5/vote/
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
 ```
 
-####Look at browser: http://127.0.0.1:8000/polls/34/
+#### Look at browser: http://127.0.0.1:8000/polls/34/
 >It is a 'detail' view of Question 34.
 
 >It shows: You are looking at questoin 34.
 
-####how??
+#### how??
 >views.py 
 >>
 ```python
@@ -317,8 +317,8 @@ urlpatterns = [
 	]
 ```
 
-#04:
-##form
+# 04:
+## form
 > where: **`polls/templates/polls/detail.html`**
 > 
 > vote할 수 있도록 라디오 버튼 생성하고, submit 버튼 생성
@@ -335,7 +335,7 @@ urlpatterns = [
 <input type="submit" value="Vote" />
 </form>
 ```
-####Generic Views:
+#### Generic Views:
 >URL에서 전달 된 매개 변수에 따라 데이터베이스에서 데이터를 가져 오는 것과 템플릿을 로드하고 렌더링 된 템플릿을 리턴하는 기본 웹 개발의 일반적인 경우
 >generic view로 전환
 
@@ -345,7 +345,7 @@ urlpatterns = [
 ```python
 from django.conf.urls import url
 from . import views
-app_name = 'polls'		#namespace
+app_name = 'polls'		# namespace
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
@@ -373,29 +373,29 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 def vote(request, question_id):
-#...원래와 같이
+# ...원래와 같이
 ```
 
 
-#05:
-##TEST
+# 05:
+## TEST
 >shell을 사용해 테스트하는 것처럼 automated test(나대신 system이 해주는)를 만들자
 
-##Test가 왜 필요할까??
-###시간 절약
+## Test가 왜 필요할까??
+### 시간 절약
 > 내가 했던 코딩을 손대지 않고 잘 돌아가는지, 문제가 있는지 바로바로 테스트할 수 있다. 
 
-###더나은 코드 설계와 신뢰성
+### 더나은 코드 설계와 신뢰성
 
-###팀워크
+### 팀워크
 >팀원들의 코드를 망치지 않고 테스트를 통해 검사
 
-##Basic Testing Strategy
+## Basic Testing Strategy
 >test-driven development: 테스트를 만들어 놓고 이에 맞춰 개발
 >아니면... 새로운 기능을 추가하거나 코드 변경을 할 떄 첫 테스트를 만들자
 
-##첫 테스트 만들기
-###ID bugs
+## 첫 테스트 만들기
+### ID bugs
 >Question.was_published_recently()에서 pub_date가 미래일 경우에도 True 반환.
 >>shell에서 확인하자
 >
@@ -407,17 +407,17 @@ def vote(request, question_id):
 >>> future_question.was_published_recently()
 True
 ```
-###Create a test to expose bugs
+### Create a test to expose bugs
 > `polls/tests.py` 에서 미래의 시간을 pub_date로 설정해 반환 값을 False인 것을 확인하는 test.
 > 이를 django.test.TestCase subclass를 만들어서 작성한다. 
 >
 ```python
 import datetime
 from django.utils import timezone
-#TestCase불러온다
+# TestCase불러온다
 from django.test import TestCase
 from .models import Question
-#TestCase의 subclass로 작성
+# TestCase의 subclass로 작성
 class QuestionMethodTests(TestCase):
     def test_was_published_recently_with_future_question(self):
         time = timezone.now() + datetime.timedelta(days=30)
@@ -425,10 +425,10 @@ class QuestionMethodTests(TestCase):
         self.assertIs(future_question.was_published_recently(), False)
 ```
 
-###Run test: python manage.py test polls
+### Run test: python manage.py test polls
 >test를 실행하면, false가 아닌 true를 반환하여 AssertionError가 발생
 
-### Fix bugs
+###  Fix bugs
 >fix models.py
 >날짜가 과거일때만 True
 >
@@ -437,9 +437,9 @@ def was_published_recently(self):
     now = timezone.now()
     return now - datetime.timedelta(days=1) <= self.pub_date <= now
 ```
-##Test a View
+## Test a View
 >pub_date의 미래값이 보지 않도록 설정되어 있는 test
-###Django Test Client
+### Django Test Client
 > simulate a user interacting with the code at the view leve (test.py나 shell에서 사용가능)
 >- shell setting:
 >
@@ -448,8 +448,8 @@ def was_published_recently(self):
 >>>> setup_test_environment()
 ```
 
-#06:
-##앱 sytle.css
+# 06:
+## 앱 sytle.css
 >`polls 디렉토리에 static 디렉토리 생성`
 >
 >`polls/static/polls/style.css`
@@ -458,10 +458,10 @@ in this file:
 
 ```css
 li a {
-    color: green;		#색 넣기
+    color: green;		# 색 넣기
 }
 body {
-    background: white url("images/background.gif") no-repeat right bottom;		#배경이미지 삽입
+    background: white url("images/background.gif") no-repeat right bottom;		# 배경이미지 삽입
 }
 ```
 
@@ -473,9 +473,9 @@ polls/templates/polls/index.html
 ```
 >run server and check: [here](http://localhost:8000/polls/)
 
-#07:
-##Customize admin
-###polls/admin.py
+# 07:
+## Customize admin
+### polls/admin.py
 > this edit will add fields in admin page and split question_text and date information. 
 
 ```python
@@ -496,7 +496,7 @@ admin.site.register(Question, QuestionAdmin)
 
 ```python
 from .models import Choice, Question
-#...
+# ...
 admin.site.register(Choice)
 ```
 
@@ -522,7 +522,7 @@ admin.site.register(Question, QuestionAdmin)
 
 ```python
 class QuestionAdmin(admin.ModelAdmin):
-    # ...
+    #  ...
     list_display = ('question_text', 'pub_date', 'was_published_recently')
 ```
 
@@ -530,23 +530,23 @@ class QuestionAdmin(admin.ModelAdmin):
 
 ```python
 list_filter = ['pub_date']
-#or
+# or
 search_fields = ['question_text']
 ```
 
-#####overall...:
+##### overall...:
 
 ```python
 from django.contrib import admin
 
 from .models import Choice, Question
 
-#choice view 테이블 형식
-# class ChoiceInline(admin.StackedInline):
+# choice view 테이블 형식
+#  class ChoiceInline(admin.StackedInline):
 class ChoiceInline(admin.TabularInline):
     model = Choice
     extra = 2 
-    #extra number can change according how many choice-edit boxes you want to show at once
+    # extra number can change according how many choice-edit boxes you want to show at once
 
 
 class QuestionAdmin(admin.ModelAdmin):

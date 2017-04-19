@@ -1,4 +1,4 @@
-##basic settings
+## basic settings
 1. create directory for the project : `mkdir djangogirls_tutorial`
 2. `cd djangogirls_tutorial`
 3. create virtual enviorment : `pyenv virtualenv 3.4.3 djangogirl`
@@ -7,7 +7,7 @@
 6. create ignore file : `vi .gitignore`
 	- pycharm (.idea 상단, 무시)
 	- django
-	- python
+	- pythonc
 	- macos
 7. create requirements.txt that tells required packages for the project: `pip freeze > requirements.txt`
 8. initialize git : `git init`
@@ -16,7 +16,7 @@
 11. Do the first commit
 12. `git push -u origin master`
 
-##start project
+## start project
 1. django-admin startproejct _name_
 2. python manage.py _appname_
 3. models.py에 model construct
@@ -26,7 +26,7 @@
 7. in admin.py: `admin.site.register(Class_name)`
 8. createsuperuser
 
-###optional
+### optional
 - ipython
 - pip isntall ipython
 - pip install django_extensions
