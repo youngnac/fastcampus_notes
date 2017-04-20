@@ -1,4 +1,22 @@
-# day1
+# 01
+
+> - 파이썬 설정
+> - 파이썬 베이직
+> - strings, list, dictionary, set etc..
+
+# 02
+
+> - if
+> - for
+> - while
+> - continue, break
+> - list comprehension
+>   -functions
+> - enumerate
+> - default params
+
+# 03
+
 >
 >- scope 
 >- closure
@@ -7,19 +25,17 @@
 >- decorator
 >- generator
 
-# day2
+# 04
 >- learn how to crawl
 >- BeautifulSoup, request
 >- crawl from naver webtoon page
 >- module, package
 
-# day3 
+# 05 
 >- class
 >- method
 >- class
 
-# pyenv setting
-
-# day4
+# 06
 >- regular expression
 >- 예외처리
